@@ -48,7 +48,19 @@ public:
         
 		count++;
     }
-    
+     
+	ItemType at (const int &idx)
+	{
+        if (idx >= size())	return nullptr;
+
+		node<ItemType> *cur = head;
+        
+		for(int i = 0; i < idx; i++)
+			cur = cur->next;
+        
+		return cur->data;
+    }
+
 	void remove (const int&  id)
 	{
 		if (empty())

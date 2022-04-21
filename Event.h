@@ -1,6 +1,8 @@
 #pragma once
 #include "cargo.h"
+#include <string>
 
+using namespace std;
 
 class Event
 {

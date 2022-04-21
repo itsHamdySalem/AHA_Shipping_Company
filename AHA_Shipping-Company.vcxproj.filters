@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{d9969f91-9014-4863-a896-ac60904a84ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Event-cpp">
+      <UniqueIdentifier>{ed38688d-1ec0-47f5-9425-dbb47649f33f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h">
@@ -49,16 +52,16 @@
       <Filter>Header Files\CargosAndTrucks-h</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="CancelEvent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CancellationEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="PreperationEvent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PromotionEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="PromoteEvent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PreparationEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,16 +78,16 @@
       <Filter>Source Files\CargosAndTrucks-cpp</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="CancelEvent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CancellationEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PreperationEvent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PromotionEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PromoteEvent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PreparationEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
