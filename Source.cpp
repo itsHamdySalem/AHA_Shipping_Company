@@ -75,10 +75,15 @@ void LoadFile (string FileName)
 			cout << 'P' << '\t' << ET << '\t' << ID << '\t' << ExtraMoney << '\n';
 
 			break;
+
+		default:
+			break;
 		}
 	}
 	cout << '\n';
 
 	InFile.close();
 }
+
+
 

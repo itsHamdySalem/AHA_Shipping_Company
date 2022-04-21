@@ -10,9 +10,12 @@
 class Company
 {
 private:
-	list<Event*>events;
-    list<cargo*>cargos;
-    list<truck*>trucks;
+	list<Event*> events;
+    list<cargo*> cargos;
+    list<truck*> trucks;
+	// we should add lists of waiting, loading, moving and delivered cargos
+	// also lists of available, loading, moving, checkup trucks
+	// lists for all types of cargos and trucks
 public:
 	Company();
 	

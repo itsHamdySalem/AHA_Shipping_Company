@@ -64,6 +64,7 @@
   <ItemGroup>
     <ClInclude Include="CancellationEvent.h" />
     <ClInclude Include="cargo.h" />
+    <ClInclude Include="Company.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="PreparationEvent.h" />
@@ -73,16 +74,19 @@
     <ClInclude Include="stack.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="truck.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CancellationEvent.cpp" />
     <ClCompile Include="cargo.cpp" />
+    <ClCompile Include="Company.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="PreparationEvent.cpp" />
     <ClCompile Include="PromotionEvent.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="truck.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

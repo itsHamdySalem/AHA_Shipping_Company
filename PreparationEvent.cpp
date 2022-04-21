@@ -36,3 +36,4 @@ void PreparationEvent::Excute()
 	if (cargotype == NORMAL); // normalcargos.push(*nw); // !!!! these lines should be modified
 	if (cargotype == SPECIAL); // specialcargos.push(*nw);*/
 }
+
