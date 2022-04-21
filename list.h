@@ -26,7 +26,7 @@ public:
 		return count == 0;
 	}
 
-	bool add (const itemType& newEntry)
+	void add (const ItemType& newEntry)
     {
 		if (empty())
 		{
@@ -37,7 +37,7 @@ public:
 			return;
 		}
 
-        node <itemType> *newNodePtr = new node<itemType>;
+        node <ItemType> *newNodePtr = new node<ItemType>;
         newNodePtr->data = newEntry;
 		newNodePtr->next = nullptr;
 
@@ -108,4 +108,7 @@ public:
 		}
 	}
 };
+
+
+
 
