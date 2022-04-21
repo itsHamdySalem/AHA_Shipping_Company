@@ -1,64 +1,32 @@
 #include "cargo.h"
 
-cargo::cargo()
+cargo::cargo(int RT, int LT, int id, int dist, int cost)
 {
-	RT = LUT = DD = Cost = -1;
-	TYP = NORMAL;
+	ReadyTime = RT;
+	LoadingTime = LT;
+	ID = id;
+	Dist = dist;
+	Cost = cost;
 }
 
-cargo::cargo(int rt, int lut, int dd, int cost, CargoType type)
+int cargo::getLoadingTime() const
 {
-	setReadyTime (rt);
-	setLUTime (lut);
-	setDistance (dd);
-	setCost (cost);
-	setType (type);
+	return LoadingTime;
 }
 
-void cargo::setReadyTime (int rt)
+int cargo::getID() const
 {
-	RT = (rt > 0)? rt : 0;
-}
-void cargo::setLUTime (int lut)
-{
-	LUT = (lut > 0)? lut : 0;
-}
-void cargo::setDistance (int dd)
-{
-	DD = (dd > 0)? dd : 0;
-}
-void cargo::setCost (int cost)
-{
-	Cost = (cost > 0)? cost : 0;
-}
-void cargo::setType (CargoType type)
-{
-	TYP = type;
+	return ID;
 }
 
-int cargo::getReadyTime ()
+int cargo::getDist() const
 {
-	return RT;
+	return Dist;
 }
-int cargo::getLUTime ()
-{
-	return LUT;
-}
-int cargo::getDistance ()
-{
-	return DD;
-}
-int cargo::getCost ()
+
+int cargo::getCost() const
 {
 	return Cost;
-}
-CargoType cargo::getType ()
-{
-	return TYP;
-}
-
-cargo::~cargo()
-{
 }
 
 
