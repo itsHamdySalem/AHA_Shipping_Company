@@ -1,14 +1,19 @@
+#pragma once
+#ifndef PRIORITY_QUEUE_H
+#define PRIORITY_QUEUE_H
+
 #include <iostream>
 using namespace std;
 
+#ifndef NODE_H
+#define NODE_H
 template <typename ItemType>
 struct node
 {
-	int priority;
 	ItemType data;
 	node *next;
 };
-
+#endif
 
 template <typename ItemType>
 class priority_queue
@@ -80,7 +85,7 @@ public:
         count--;
 	}
 	
-	ItemType front ()
+	ItemType Front ()
 	{
 		return front->data;
 	}
@@ -97,3 +102,5 @@ public:
 	}
 };
 
+
+#endif

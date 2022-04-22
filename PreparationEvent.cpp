@@ -31,7 +31,7 @@ int PreparationEvent::getTime() const
 
 void PreparationEvent::Excute()
 {
-	cargo* nw = new cargo(Time, LoadingTime, ID, Dist, Cost);
+	cargo* nw = new cargo(Time, LoadingTime, ID, Dist, Cost, cargotype);
 	/*if (cargotype == VIP); // vipcargos.push(*nw);
 	if (cargotype == NORMAL); // normalcargos.push(*nw); // !!!! these lines should be modified
 	if (cargotype == SPECIAL); // specialcargos.push(*nw);*/

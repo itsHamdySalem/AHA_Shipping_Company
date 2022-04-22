@@ -52,6 +52,7 @@ void UI::ApplyMode ()
 void UI::ApplyInteractive ()
 {
 	// apply
+	// _sleep(1000);
 	generateOutputFile();
 }
 void UI::ApplyStepByStep ()

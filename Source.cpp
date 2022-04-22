@@ -8,10 +8,10 @@ void LoadFile (string FileName);
 int main ()
 {
 	cout << '\n' << "========================= AHA Shipping Company =========================" << '\n';
-	cout << "Load File Testing...\nFile Name: ";
+	/*cout << "Load File Testing...\nFile Name: ";
 	string FileName;
 	cin >> FileName;
-	LoadFile(FileName);
+	LoadFile(FileName);*/
 	system("pause");
 	return 0;
 }

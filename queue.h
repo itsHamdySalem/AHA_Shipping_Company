@@ -1,12 +1,19 @@
+#pragma once
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include <iostream>
 using namespace std;
 
-template<typename ItemType>
+#ifndef NODE_H
+#define NODE_H
+template <typename ItemType>
 struct node
 {
-    ItemType data;
-    node* next;
+	ItemType data;
+	node *next;
 };
+#endif
 
 template<typename ItemType>
 class queue
@@ -62,7 +69,7 @@ public:
         count--;
     }
     
-	ItemType front ()
+	ItemType Front ()
     {
         return front->data;
     }
@@ -87,3 +94,5 @@ public:
 
 
 
+
+#endif
