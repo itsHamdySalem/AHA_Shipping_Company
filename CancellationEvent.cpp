@@ -22,7 +22,7 @@ int CancellationEvent::getID() const
 	return ID;
 }
 
-void CancellationEvent::Excute()
+void CancellationEvent::Execute()
 {
 	// if (VIPlist.remove(ID)) return;
 	// if (NormalList.remove(ID)) return;

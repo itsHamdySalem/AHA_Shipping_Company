@@ -1,14 +1,7 @@
 #pragma once
 
-#include <iostream>
-using namespace std;
+#include "node.h"
 
-template <typename ItemType>
-struct node
-{
-    ItemType data;
-    node* next;
-};
 
 template <typename ItemType>
 class stack

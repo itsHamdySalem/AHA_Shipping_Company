@@ -57,9 +57,6 @@
     <ClInclude Include="cargo.h">
       <Filter>Header Files\CargosAndTrucks-h</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Header Files\CargosAndTrucks-h</Filter>
-    </ClInclude>
     <ClInclude Include="truck.h">
       <Filter>Header Files\CargosAndTrucks-h</Filter>
     </ClInclude>
@@ -81,15 +78,21 @@
     <ClInclude Include="UI.h">
       <Filter>Header Files\UI-h</Filter>
     </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>Header Files\Data-Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cargo.cpp">
-      <Filter>Source Files\CargosAndTrucks-cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
       <Filter>Source Files\CargosAndTrucks-cpp</Filter>
     </ClCompile>
     <ClCompile Include="truck.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Source Files\UI-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

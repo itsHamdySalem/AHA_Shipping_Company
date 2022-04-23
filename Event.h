@@ -14,6 +14,6 @@ public:
 	Event();
 
 	virtual void Execute () = 0;
-
+    bool ifTimeCome(int);
 	~Event();
 };

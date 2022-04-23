@@ -2,18 +2,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
-using namespace std;
-
-#ifndef NODE_H
-#define NODE_H
-template <typename ItemType>
-struct node
-{
-	ItemType data;
-	node *next;
-};
-#endif
+#include "node.h"
 
 template <typename ItemType>
 class list

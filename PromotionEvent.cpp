@@ -20,7 +20,7 @@ int PromotionEvent::getTime() const
 }
 
 
-void PromotionEvent::Excute()
+void PromotionEvent::Execute()
 {
 	// normallist.promote(ID, ExtraCost);
 }

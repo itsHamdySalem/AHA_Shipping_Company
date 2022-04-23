@@ -15,6 +15,6 @@ public:
 
     int getID() const;
 
-    void Excute();
+    void Execute();
 };
 

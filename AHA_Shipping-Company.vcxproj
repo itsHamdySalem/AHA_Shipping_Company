@@ -67,6 +67,7 @@
     <ClInclude Include="Company.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="PreparationEvent.h" />
     <ClInclude Include="priority_queue.h" />
     <ClInclude Include="PromotionEvent.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="stack.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="truck.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>

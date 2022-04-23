@@ -2,18 +2,7 @@
 #ifndef PRIORITY_QUEUE_H
 #define PRIORITY_QUEUE_H
 
-#include <iostream>
-using namespace std;
-
-#ifndef NODE_H
-#define NODE_H
-template <typename ItemType>
-struct node
-{
-	ItemType data;
-	node *next;
-};
-#endif
+#include "node.h"
 
 template <typename ItemType>
 class priority_queue
@@ -30,7 +19,7 @@ public:
 
 	bool empty ()
 	{
-		count == 0;
+		return count == 0;
 	}
 
 	int size ()
@@ -54,7 +43,7 @@ public:
 		}
 
 		node<ItemType> *ptr = new node<ItemType>;
-		ptr->data = entery
+		ptr->data = entery;
 		ptr->priority = priority;
 		ptr->next = nullptr;
 
