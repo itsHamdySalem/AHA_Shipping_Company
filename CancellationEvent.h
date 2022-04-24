@@ -1,19 +1,20 @@
 #pragma once
 #include "Event.h"
+
 class CancellationEvent :
     public Event
 {
     int Time, ID;
 
 public:
-    CancellationEvent(string, int);
+    CancellationEvent(string t, int id);
 
-    void setTime(string);
+    void setTime(string t);
 
     int getTime() const;
 
     int getID() const;
 
-    void Excute();
+    void Execute(Company*);
 };
 

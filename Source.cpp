@@ -1,18 +1,10 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
-
-void LoadFile (string FileName);
+#include "Company.h"
 
 int main ()
 {
-	cout << '\n' << "========================= AHA Shipping Company =========================" << '\n';
-	system("pause");
+	cout << "\n\n========================= AHA Shipping Company =========================\n\n";
+	Company AHA_Shipping_Company;
+	system("PAUSE");
 	return 0;
-}
-
-void LoadFile (string FileName)
-{
-	
 }

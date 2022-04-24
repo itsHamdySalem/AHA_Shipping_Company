@@ -20,7 +20,7 @@ int PromotionEvent::getTime() const
 }
 
 
-void PromotionEvent::Excute()
+void PromotionEvent::Execute(Company* company)
 {
-	// normallist.promote(ID, ExtraCost);
+	company->promoteCargo(ID);
 }

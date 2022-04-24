@@ -22,8 +22,23 @@
     <Filter Include="Source Files\CargosAndTrucks-cpp">
       <UniqueIdentifier>{ac3ca016-c07e-47de-88c2-320823304f81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Events">
+    <Filter Include="Source Files\Event-cpp">
+      <UniqueIdentifier>{ed38688d-1ec0-47f5-9425-dbb47649f33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events-h">
       <UniqueIdentifier>{d9969f91-9014-4863-a896-ac60904a84ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Company-h">
+      <UniqueIdentifier>{35911ae1-49d8-46b1-ae7b-c705ec4b3d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Company-cpp">
+      <UniqueIdentifier>{056754c1-8020-4971-b611-b7ce8a78afa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI-h">
+      <UniqueIdentifier>{91479f71-31c3-48db-a396-d6903b09495a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI-cpp">
+      <UniqueIdentifier>{0681e2cc-e7f6-4c23-8f33-dd8352896b73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,22 +57,34 @@
     <ClInclude Include="cargo.h">
       <Filter>Header Files\CargosAndTrucks-h</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Header Files\CargosAndTrucks-h</Filter>
-    </ClInclude>
     <ClInclude Include="truck.h">
       <Filter>Header Files\CargosAndTrucks-h</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
+      <Filter>Header Files\Events-h</Filter>
+    </ClInclude>
+    <ClInclude Include="CancellationEvent.h">
+      <Filter>Header Files\Events-h</Filter>
+    </ClInclude>
+    <ClInclude Include="PromotionEvent.h">
+      <Filter>Header Files\Events-h</Filter>
+    </ClInclude>
+    <ClInclude Include="PreparationEvent.h">
+      <Filter>Header Files\Events-h</Filter>
+    </ClInclude>
+    <ClInclude Include="Company.h">
+      <Filter>Header Files\Company-h</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files\UI-h</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>Header Files\Data-Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CancelEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PreperationEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PromoteEvent.h">
+    <ClInclude Include="Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,22 +95,28 @@
     <ClCompile Include="cargo.cpp">
       <Filter>Source Files\CargosAndTrucks-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source Files\CargosAndTrucks-cpp</Filter>
-    </ClCompile>
     <ClCompile Include="truck.cpp">
       <Filter>Source Files\CargosAndTrucks-cpp</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="CancelEvent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CancellationEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PreperationEvent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PromotionEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PromoteEvent.cpp">
+    <ClCompile Include="PreparationEvent.cpp">
+      <Filter>Source Files\Event-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Company.cpp">
+      <Filter>Source Files\Company-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files\UI-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

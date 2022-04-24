@@ -22,9 +22,7 @@ int CancellationEvent::getID() const
 	return ID;
 }
 
-void CancellationEvent::Excute()
+void CancellationEvent::Execute(Company*company)
 {
-	// if (VIPlist.remove(ID)) return;
-	// if (NormalList.remove(ID)) return;
-	// if (Speciallist.remove(ID)) return;
+	company->cancelCargo(ID);
 }

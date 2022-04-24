@@ -1,12 +1,8 @@
-#include <iostream>
-using namespace std;
+#pragma once
+#ifndef LIST_H
+#define LIST_H
 
-template <typename ItemType>
-struct node
-{
-	ItemType data;
-	node *next;
-};
+#include "node.h"
 
 template <typename ItemType>
 class list
@@ -26,7 +22,7 @@ public:
 		return count == 0;
 	}
 
-	bool add (const itemType& newEntry)
+	void add (const ItemType& newEntry)
     {
 		if (empty())
 		{
@@ -37,7 +33,7 @@ public:
 			return;
 		}
 
-        node <itemType> *newNodePtr = new node<itemType>;
+        node <ItemType> *newNodePtr = new node<ItemType>;
         newNodePtr->data = newEntry;
 		newNodePtr->next = nullptr;
 
@@ -48,8 +44,20 @@ public:
         
 		count++;
     }
-    
-	void remove (const int&  id)
+     
+	ItemType at (const int &idx)
+	{
+        if (idx >= size())	return nullptr;
+
+		node<ItemType> *cur = head;
+        
+		for(int i = 0; i < idx; i++)
+			cur = cur->next;
+        
+		return cur->data;
+    }
+
+	void remove (const ItemType&  id)
 	{
 		if (empty())
 			return;
@@ -96,4 +104,4 @@ public:
 		}
 	}
 };
-
+#endif

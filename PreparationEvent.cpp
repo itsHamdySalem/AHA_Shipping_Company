@@ -1,4 +1,5 @@
 #include "PreparationEvent.h"
+#include "Types.h"
 
 PreparationEvent::PreparationEvent(char type, string time, int id, int dist, int LT, int cost)
 {
@@ -19,9 +20,9 @@ void PreparationEvent::setTime(string t)
 
 void PreparationEvent::setCargoType(char t)
 {
-	if (t == 'V') cargotype = VIP;
-	if (t == 'N') cargotype = NORMAL;
-	if (t == 'S') cargotype = SPECIAL;
+	if (t == 'V') cargotype = VIP_CARGO;
+	if (t == 'N') cargotype = NORMAL_CARGO;
+	if (t == 'S') cargotype = SPECIAL_CARGO;
 }
 
 int PreparationEvent::getTime() const
@@ -29,10 +30,8 @@ int PreparationEvent::getTime() const
 	return Time;
 }
 
-void PreparationEvent::Excute()
-{
-	cargo* nw = new cargo(Time, LoadingTime, ID, Dist, Cost);
-	if (cargotype == VIP); // vipcargos.push(*nw);
-	if (cargotype == NORMAL); // normalcargos.push(*nw); // !!!! these lines should be modified
-	if (cargotype == SPECIAL); // specialcargos.push(*nw);
+void PreparationEvent::Execute(Company* company){
+	cargo* nw = new cargo(Time, LoadingTime, ID, Dist, Cost, cargotype, WAITING_CARGO);
+	company->addCargo(nw);
 }
+

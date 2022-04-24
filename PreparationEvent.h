@@ -19,7 +19,7 @@ public:
 
     int getTime() const;
 
-    void Excute();
+    void Execute(Company*);
 
 };
 

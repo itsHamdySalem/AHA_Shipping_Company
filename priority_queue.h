@@ -1,14 +1,8 @@
-#include <iostream>
-using namespace std;
+#pragma once
+#ifndef PRIORITY_QUEUE_H
+#define PRIORITY_QUEUE_H
 
-template <typename ItemType>
-struct node
-{
-	int priority;
-	ItemType data;
-	node *next;
-};
-
+#include "node.h"
 
 template <typename ItemType>
 class priority_queue
@@ -25,7 +19,7 @@ public:
 
 	bool empty ()
 	{
-		count == 0;
+		return count == 0;
 	}
 
 	int size ()
@@ -49,7 +43,7 @@ public:
 		}
 
 		node<ItemType> *ptr = new node<ItemType>;
-		ptr->data = entery
+		ptr->data = entery;
 		ptr->priority = priority;
 		ptr->next = nullptr;
 
@@ -80,7 +74,7 @@ public:
         count--;
 	}
 	
-	ItemType front ()
+	ItemType Front ()
 	{
 		return front->data;
 	}
@@ -97,3 +91,5 @@ public:
 	}
 };
 
+
+#endif

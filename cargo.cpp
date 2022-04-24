@@ -1,12 +1,14 @@
 #include "cargo.h"
 
-cargo::cargo(int RT, int LT, int id, int dist, int cost)
+cargo::cargo(int RT, int LT, int id, int dist, int cost, CargoType type, CargoStatus status)
 {
 	ReadyTime = RT;
 	LoadingTime = LT;
 	ID = id;
 	Dist = dist;
 	Cost = cost;
+	TYP = type;
+    STATUS = status;
 }
 
 int cargo::getLoadingTime() const
@@ -30,3 +32,7 @@ int cargo::getCost() const
 }
 
 
+CargoType cargo::getType () const
+{
+	return TYP;
+}
