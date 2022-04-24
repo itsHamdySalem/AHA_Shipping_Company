@@ -18,13 +18,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -62,27 +62,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CancelEvent.h" />
+    <ClInclude Include="CancellationEvent.h" />
     <ClInclude Include="cargo.h" />
+    <ClInclude Include="Company.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="list.h" />
-    <ClInclude Include="PreperationEvent.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="PreparationEvent.h" />
     <ClInclude Include="priority_queue.h" />
-    <ClInclude Include="PromoteEvent.h" />
+    <ClInclude Include="PromotionEvent.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="stack.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="truck.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CancelEvent.cpp" />
+    <ClCompile Include="CancellationEvent.cpp" />
     <ClCompile Include="cargo.cpp" />
+    <ClCompile Include="Company.cpp" />
     <ClCompile Include="Event.cpp" />
-    <ClCompile Include="PreperationEvent.cpp" />
-    <ClCompile Include="PromoteEvent.cpp" />
+    <ClCompile Include="PreparationEvent.cpp" />
+    <ClCompile Include="PromotionEvent.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="truck.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

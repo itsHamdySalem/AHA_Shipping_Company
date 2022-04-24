@@ -1,6 +1,11 @@
 #pragma once
 #include "cargo.h"
+#include "Company.h"
+#include <string>
 
+using namespace std;
+
+class Company;
 
 class Event
 {
@@ -11,7 +16,7 @@ private:
 public:
 	Event();
 
-	virtual void Execute () = 0;
-
+	virtual void Execute (Company*) = 0;
+    bool ifTimeCome(int);
 	~Event();
 };

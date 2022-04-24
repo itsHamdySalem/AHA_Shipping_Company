@@ -5,15 +5,17 @@ truck::truck()
 {
 	TC = MT = Speed = DI = 0;
 	TYP = NORMAL_TRUCK;
+    STATUS = AVAILABLE_TRUCK;
 }
 
-truck::truck(int tc, int mt, int speed, int di, TruckType type)
+truck::truck(int tc, int mt, int speed, int numberOfJournies, TruckType type, TruckStatus status)
 {
 	setCapacity (tc);
 	setMaintenanceTime (mt);
 	setSpeed (speed);
-	setDeliveryInterval (di);
+	setNumberOfJournies (numberOfJournies);
 	setType (type);
+    setStatus(status);
 }
 
 void truck::setCapacity (int tc)
@@ -32,9 +34,16 @@ void truck::setDeliveryInterval (int di)
 {
 	DI = (di > 0)? di : 0;
 }
+void truck::setNumberOfJournies(int nt){
+    numberOfJournies = nt;
+}
 void truck::setType (TruckType type)
 {
 	TYP = type;
+}
+
+void truck::setStatus(TruckStatus status){
+    STATUS = status;
 }
 
 int truck::getCapacity ()
