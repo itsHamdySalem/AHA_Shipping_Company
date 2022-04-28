@@ -48,7 +48,7 @@ public:
 	// get the data of the node at a specific index
 	ItemType at (const int &idx)
 	{
-        if (idx >= size())	return nullptr;	// if the index is greater than the size of the list
+        //if (idx >= size())	return ;	// if the index is greater than the size of the list
 
 		node<ItemType> *cur = head;
         
@@ -70,6 +70,7 @@ public:
 		{
 			head = head->next;
 			delete temp1;
+			count--;
 			return;
 		}
 
@@ -104,6 +105,16 @@ public:
 			head = head->next;
 			delete ptr;
 		}
+	}
+	void Print ()
+	{
+		node<ItemType> *temp = head;
+		while (temp)
+		{
+			cout << temp->data << ' ';
+			temp = temp->next;
+		}
+		cout << '\n';
 	}
 };
 

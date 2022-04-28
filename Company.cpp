@@ -2,30 +2,28 @@
 
 Company::Company()
 {
-    currentTime = 0;
+	currentTime = 0;
 	ui = new UI(this);
-   
+	if (ui->LoadInputFile())
+	{
+		ui->setMode();
+		simulate();
+	}
 }
  
 void Company::executeEvents()
 {
-	int eventsSize = Events.size();
- 
-	for(int i=0;i<eventsSize;i++)
-	{
-		Event* event = Events.Front();
-        if(event->ifTimeCome(currentTime)){
-            // TODO:: Check if valid event, then execute
-            event->Execute(this);
-            Events.pop();
-        }
-	}
+    while(!Events.empty() && Events.Front()->getTime() == currentTime) {
+        // TODO:: Check if valid event, then execute
+        Events.Front()->Execute(this);
+        Events.pop();
+
+    }
 }
  
 void Company::simulate()
 {
-	for(int hour = 0;hour < 100;hour++)
-		executeEvents();
+	ui->ApplyMode();
 }
  
 void Company::promoteCargo(int cargoID){
@@ -36,7 +34,9 @@ void Company::promoteCargo(int cargoID){
     {
         cargo* currentCargo = Normal_Cargos.at(i);
         if(currentCargo->getID() == cargoID){
+
             Normal_Cargos.remove(currentCargo);
+			currentCargo->setType(VIP_CARGO);
             VIP_Cargos.push(currentCargo, 0);
             break;
         }
@@ -80,17 +80,17 @@ void Company::addTruck(truck *c){
 }
  
 void Company::cancelCargo(int cargoID){
-    cancelCargo(cargoID, &Normal_Cargos);
-    cancelCargo(cargoID, &waitingCargos);
+    cancelCargo(cargoID, Normal_Cargos);
+    cancelCargo(cargoID, waitingCargos);
 }
  
-void Company::cancelCargo(int cargoID, list<cargo*> *ls){
-    int CargosN = ls->size();
+void Company::cancelCargo(int cargoID, list<cargo*> &ls){
+    int CargosN = ls.size();
     for(int i=0;i<CargosN;i++)
     {
-        cargo* currentCargo = ls->at(i);
+        cargo* currentCargo = ls.at(i);
         if(currentCargo->getID() == cargoID){
-            ls->remove(currentCargo);
+            ls.remove(currentCargo);
             break;
         }
     }
@@ -109,9 +109,13 @@ void Company::assignCargos(){
 int Company::getCurrentTime(){
     return this->currentTime;
 }
+void Company::setCurrentTime(int time)
+{
+	currentTime = (time > 0)? time : currentTime;
+}
 
-void Company::getWaitingCargos(list<cargo*>& wCargos){
-    wCargos = waitingCargos;
+list<cargo*>& Company::getWaitingCargos(){
+    return waitingCargos;
 }
 
 void Company::getMovingCargos(list<cargo*> & mCargos){
@@ -130,8 +134,8 @@ void Company::getCheckUpTrucks(list<truck*> &cTrucks){
     cTrucks = checkUpTrucks;
 }
 
-void Company::getDeliveredCargos(list<cargo*>& dCargos){
-    dCargos = deliveredCargos;
+list<cargo*>& Company::getDeliveredCargos(){
+    return deliveredCargos;
 }
 
 void Company::addTrucks(int N, TruckType typ, int speed, int capacity, int journies, int durationCheckup){
@@ -141,8 +145,13 @@ void Company::addTrucks(int N, TruckType typ, int speed, int capacity, int journ
     }
 }
 
+void Company::moveTrucks()
+{
+	
+}
+
 void Company::addEvent(Event* e){
-    Events.push(e, 0);
+    Events.push(e);
 }
 
 void Company::setmaxWHours(int maxW){
@@ -153,3 +162,25 @@ void Company::setautoPromotionLimitHours(int maxPromotionLimit){
     autoPromotionLimitHours = maxPromotionLimit;
 }
 
+void Company::moveCargoOfType(CargoType type, list<cargo*> &cargos)
+{
+	for (int i = 0; i < cargos.size(); i++)
+	{
+		if(cargos.at(i)->getType() == type)
+		{
+			deliveredCargos.add(cargos.at(i));
+			// cout << deliveredCargos.at(0)->getID() << '\n';
+			cargos.remove(cargos.at(i));
+			// cout << deliveredCargos.at(0)->getID() << '\n';
+			// system("pause");
+			return;
+		}
+	}
+}
+
+void Company::moveCargo ()
+{
+	moveCargoOfType(NORMAL_CARGO, waitingCargos);
+	moveCargoOfType(SPECIAL_CARGO,waitingCargos);
+	moveCargoOfType(VIP_CARGO,waitingCargos);
+}

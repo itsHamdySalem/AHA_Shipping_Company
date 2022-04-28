@@ -48,19 +48,21 @@ public:
 		ptr->priority = priority;
 		ptr->next = nullptr;
 
-		if (front->priority < ptr->priority)	// if it has more priority than the front, make it the front then.
+		if (front->priority > ptr->priority)	// if it has more priority than the front, make it the front then.
 		{
 			ptr->next = front;
 			front = ptr;
+			count++;
 			return;
 		}
 
 		node<ItemType> *temp = front;
-		while (temp->next && (temp->next->priority) > ptr->priority)	// keep looping till you find the first element with less priority or end of queue
+		while (temp->next && (temp->next->priority) < ptr->priority)	// keep looping till you find the first element with less priority or end of queue
 			temp = temp->next;
 
 		ptr->next = temp->next;
 		temp->next = ptr;
+		count++;
 	}
 
 	// it removes the first element in the queue (the front)

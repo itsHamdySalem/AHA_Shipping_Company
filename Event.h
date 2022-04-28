@@ -21,6 +21,7 @@ public:
 
 	virtual void Execute (Company*) = 0;
     bool ifTimeCome(int);
+	virtual int getTime () const = 0;
 
 	~Event();
 };

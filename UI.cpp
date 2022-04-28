@@ -10,12 +10,6 @@ UI::UI(){
 UI::UI(Company* c){
     
 	company = c;
-	
-	if (LoadInputFile())
-	{
-		setMode();
-		ApplyMode();
-	}
 }
 
 void UI::setMode ()
@@ -67,33 +61,30 @@ void UI::ApplyMode ()
 
 void UI::ApplyInteractive ()
 {
-	cout << "Simulation Starts...\n";
-
-	printCurrentTime(company);
-	printWaitingCargos(company);
-	printDeliveredCargos(company);
-	// printEmptyTrucks(company);
-	if (generateOutputFile())
-		cout << "Simulation ends, Output file created...\n";
-	else
-		cout << "Error: output file is not generated...!\n";
+	cout << "Simulation Starts...\n\n";
+	while (company->getCurrentTime() < 71)
+	{
+		company->executeEvents();
+		if (company->getCurrentTime() % 5 == 0 && company->getCurrentTime())
+			company->moveCargo();
+		printCurrentTime(company);
+		printWaitingCargos(company);
+		printDeliveredCargos(company);
+		cout << "press ENTER to continue..\n";
+	    cin.ignore();
+		cout << "\n-------------------------------------------------------\n";
+		company->setCurrentTime(company->getCurrentTime() + 1);
+	}
 }
 void UI::ApplyStepByStep ()
 {
 	//_sleep(1000);
 	cout << "Simulation Starts...\n";
-	if (generateOutputFile())
-		cout << "Simulation ends, Output file created...\n";
-	else
-		cout << "Error: output file is not generated...!\n";
+	generateOutputFile();
 }
 void UI::ApplySilent ()
 {
-	cout << "Simulation starts...\n";
-	if (generateOutputFile())
-		cout << "Simulation ends, Output file created...\n";
-	else
-		cout << "Error: output file is not generated...!\n";
+	generateOutputFile();
 }
 
 bool UI::LoadInputFile ()
@@ -107,7 +98,7 @@ bool UI::LoadInputFile ()
 	InFile.open(FileName+".txt");
 	if (!InFile.is_open())
 	{
-		cout << FileName << " not fount!\n";
+		cout << FileName << " not found!\n";
 		return false;
 	}
 
@@ -170,12 +161,22 @@ bool UI::LoadInputFile ()
 
 bool UI::generateOutputFile ()
 {
-	return true;
+	// TODO
+	if (1)	// if generated successfully
+	{
+		cout << "Simulation ends, Output file created...\n";
+		return true;
+	}
+	else
+	{
+		cout << "Error: output file is not generated...!\n";
+		return false;
+	}
 }
 
 void UI::printCurrentTime(Company * cmp){
     int hr = cmp->getCurrentTime();
-    cout << "Current Time (Day:Hour):" << hr/24 << ":" << hr%24 << endl;
+    cout << "Current Time (Day:Hour):" << hr/24 + 1 << ":" << hr%24 << endl;
 }
 
 void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBracket, char closeBracket){
@@ -209,8 +210,7 @@ void UI::printTrucksOfType(list<truck*>& trucks, TruckType tType, char openBrack
 
 
 void UI::printWaitingCargos(Company *cmp){
-    list<cargo*> cargos;
-    cmp->getWaitingCargos(cargos);
+    list<cargo*>& cargos = cmp->getWaitingCargos();
     cout << cargos.size() << " Waiting Cargos:";
 
     printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
@@ -266,15 +266,13 @@ void UI::printInCheckTrucks(Company *cmp){
 }
 
 void UI::printDeliveredCargos(Company *cmp){
-    list<cargo*> cargos;
-    cmp->getDeliveredCargos(cargos);
+    list<cargo*>& cargos = cmp->getDeliveredCargos();
     cout << cargos.size() << " Delivered Cargos:";
 
     printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
     printCargosOfType(cargos, SPECIAL_CARGO, '(', ')');
     printCargosOfType(cargos, VIP_CARGO, '{', '}');
     cout << "\n-----------------------------------------\n";
-
 }
 
 

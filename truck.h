@@ -8,7 +8,7 @@ class truck
 {
 private:
 	int TC, MT, Speed, DI, DJ;	// TC: Truck Capacity, MT: Maintenance Time, DI: Delivey Interval, DJ: Delivery Journeys
-	TruckType TYP;
+	TruckType TYP;	// TYP: type of truck
     TruckStatus STATUS;
 public:
 	truck();
