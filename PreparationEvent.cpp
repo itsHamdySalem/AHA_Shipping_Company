@@ -15,7 +15,7 @@ void PreparationEvent::setTime(string t)
 {
 	int idx = 0;
 	while (t[idx] != ':') idx++;
-	Time = stoi(t.substr(0, idx)) * 24 + stoi(t.substr(idx + 1));
+	Time = (stoi(t.substr(0, idx)) - 1 )* 24 + stoi(t.substr(idx + 1));
 }
 
 void PreparationEvent::setCargoType(char t)
@@ -30,10 +30,11 @@ int PreparationEvent::getTime() const
 	return Time;
 }
 
-void PreparationEvent::Execute(){
+void PreparationEvent::Execute(Company* company) {
 	cargo* nw = new cargo(Time, LoadingTime, ID, Dist, Cost, cargotype, WAITING_CARGO);
-	/*if (cargotype == VIP); // vipcargos.push(*nw);
-	if (cargotype == NORMAL); // normalcargos.push(*nw); // !!!! these lines should be modified
-	if (cargotype == SPECIAL); // specialcargos.push(*nw);*/
+	company->addCargo(nw);
 }
 
+PreparationEvent::~PreparationEvent ()
+{
+}

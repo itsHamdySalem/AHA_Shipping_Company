@@ -11,6 +11,7 @@
 #include "UI.h"
 
 class UI;
+class Event;
 
 class Company
 {
@@ -21,18 +22,20 @@ private:
     priority_queue<cargo*> VIP_Cargos;
 
     list<truck*> VIP_Trucks, Special_Trucks, Normal_Trucks;
-    priority_queue<truck*> Assigned_Trucks;
+
+	priority_queue<truck*> Assigned_Trucks;
 
     list<cargo*> loadingCargos, waitingCargos, movingCargos, deliveredCargos;
     list<truck*> availableTrucks, loadingTrucks, movingTrucks, checkUpTrucks;
 
-    priority_queue<Event*> Events;
+    queue<Event*> Events;
 
     UI *ui;
 
     int currentTime, autoPromotionLimitHours, maxWHours;
 
-    void cancelCargo(int, list<cargo*>*);
+	void cancelCargo(int, list<cargo*>&);
+	void moveCargoOfType(CargoType type, list<cargo*> &cargos);
 public:
 	Company();
  
@@ -50,16 +53,21 @@ public:
     void setmaxWHours(int);
 
     int getCurrentTime();
+	void setCurrentTime(int time);
 
-    void getWaitingCargos(list<cargo*>&);
+    list<cargo*>& getWaitingCargos();
     void getMovingCargos(list<cargo*>&);
 
     void getLoadingTrucks(list<truck*>&);
     void getEmptyTrucks(list<truck*>&);
     void getCheckUpTrucks(list<truck*>&);
-    void getDeliveredCargos(list<cargo*>&);
+    list<cargo*>& getDeliveredCargos();
+
+	// phase I : move cargos from waiting to delivered
+	void moveCargo ();
 
     void addTrucks(int N, TruckType typ, int speed, int capacity, int journies, int durationCheckup);
+	void moveTrucks();
 
     void assignCargos();
 
@@ -68,4 +76,4 @@ public:
  
 #endif
  
- 
+

@@ -1,13 +1,14 @@
 #pragma once
-#include "Event.h"
+#ifndef PROMOTION_EVENT_H
+#define PROMOTION_EVENT_H
 
-using namespace std;
+#include "Event.h"
 
 class PromotionEvent :
     public Event
 {
+private:
     int Time, ID, ExtraCost;
-
 public:
     PromotionEvent(string time, int id, int extra);
 
@@ -15,6 +16,10 @@ public:
 
     int getTime() const;
 
-    void Execute();
+    void Execute(Company*);
+
+	~PromotionEvent();
+
 };
 
+#endif

@@ -31,6 +31,10 @@ int cargo::getCost() const
 	return Cost;
 }
 
+void cargo::setType(CargoType type)
+{
+	TYP = type;
+}
 
 CargoType cargo::getType () const
 {

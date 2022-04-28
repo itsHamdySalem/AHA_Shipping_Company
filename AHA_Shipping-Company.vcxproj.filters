@@ -16,29 +16,38 @@
     <Filter Include="Header Files\Data-Structures">
       <UniqueIdentifier>{58685fee-d5ce-4b94-b022-a7bf3809f196}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\CargosAndTrucks-h">
-      <UniqueIdentifier>{30366555-e8dc-4d38-bf71-3bc5e2d493dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\CargosAndTrucks-cpp">
       <UniqueIdentifier>{ac3ca016-c07e-47de-88c2-320823304f81}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Event-cpp">
       <UniqueIdentifier>{ed38688d-1ec0-47f5-9425-dbb47649f33f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Events-h">
-      <UniqueIdentifier>{d9969f91-9014-4863-a896-ac60904a84ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Company-h">
-      <UniqueIdentifier>{35911ae1-49d8-46b1-ae7b-c705ec4b3d4a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Company-cpp">
       <UniqueIdentifier>{056754c1-8020-4971-b611-b7ce8a78afa6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\UI-h">
-      <UniqueIdentifier>{91479f71-31c3-48db-a396-d6903b09495a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\UI-cpp">
       <UniqueIdentifier>{0681e2cc-e7f6-4c23-8f33-dd8352896b73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Time-cpp">
+      <UniqueIdentifier>{409743a8-b507-4d6f-a3c1-3b57f90757c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{9cf6cf28-f2e8-40cb-abe9-9d5680ad0562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CargosAndTrucks">
+      <UniqueIdentifier>{30366555-e8dc-4d38-bf71-3bc5e2d493dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Company">
+      <UniqueIdentifier>{35911ae1-49d8-46b1-ae7b-c705ec4b3d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{d9969f91-9014-4863-a896-ac60904a84ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Time">
+      <UniqueIdentifier>{9d145ac2-ca11-4649-a4b0-2b6f28457c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{91479f71-31c3-48db-a396-d6903b09495a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,37 +64,37 @@
       <Filter>Header Files\Data-Structures</Filter>
     </ClInclude>
     <ClInclude Include="cargo.h">
-      <Filter>Header Files\CargosAndTrucks-h</Filter>
+      <Filter>Header Files\CargosAndTrucks</Filter>
     </ClInclude>
     <ClInclude Include="truck.h">
-      <Filter>Header Files\CargosAndTrucks-h</Filter>
+      <Filter>Header Files\CargosAndTrucks</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Header Files\Events-h</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="CancellationEvent.h">
-      <Filter>Header Files\Events-h</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="PromotionEvent.h">
-      <Filter>Header Files\Events-h</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="PreparationEvent.h">
-      <Filter>Header Files\Events-h</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="Company.h">
-      <Filter>Header Files\Company-h</Filter>
+      <Filter>Header Files\Company</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>Header Files\UI-h</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="node.h">
       <Filter>Header Files\Data-Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +126,7 @@
       <Filter>Source Files\UI-cpp</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Time-cpp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

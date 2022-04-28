@@ -8,8 +8,8 @@ template <typename ItemType>
 class priority_queue
 {
 private:
-	node<ItemType> *front, *rear;
-	int count;
+	node<ItemType> *front, *rear;	// a pointer that points to the first element in the queue and another one to point to the last element
+	int count;	// the size of the queue
 public:
 	priority_queue ()
 	{
@@ -27,9 +27,10 @@ public:
 		return count;
 	}
 
+	// inserting a new element in the queue based on a specific priority
 	void push (const ItemType& entery, int priority)
 	{
-		if (empty())
+		if (empty())	// if empty make it the front if the queue
 		{
 			front = new node<ItemType>;
 			front->data = entery;
@@ -41,27 +42,30 @@ public:
 		
 			return;
 		}
-
+		
 		node<ItemType> *ptr = new node<ItemType>;
 		ptr->data = entery;
 		ptr->priority = priority;
 		ptr->next = nullptr;
 
-		if (front->priority < ptr->priority)
+		if (front->priority > ptr->priority)	// if it has more priority than the front, make it the front then.
 		{
 			ptr->next = front;
 			front = ptr;
+			count++;
 			return;
 		}
 
 		node<ItemType> *temp = front;
-		while (temp->next && temp->next->priority > ptr->priority)
+		while (temp->next && (temp->next->priority) < ptr->priority)	// keep looping till you find the first element with less priority or end of queue
 			temp = temp->next;
 
 		ptr->next = temp->next;
 		temp->next = ptr;
+		count++;
 	}
 
+	// it removes the first element in the queue (the front)
 	void pop ()
 	{
 		if (empty())
@@ -74,6 +78,7 @@ public:
         count--;
 	}
 	
+	// returns the data of the first element in the queue
 	ItemType Front ()
 	{
 		return front->data;
@@ -82,7 +87,7 @@ public:
 	~priority_queue ()
 	{
 		node<ItemType> *ptr;
-		while (front)
+		while (front)	// deleting queue
 		{
 			ptr = front;
 			front = front->next;
@@ -93,3 +98,4 @@ public:
 
 
 #endif
+
