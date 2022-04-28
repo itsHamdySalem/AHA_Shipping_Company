@@ -1,18 +1,18 @@
 #pragma once
 #ifndef TRUCK_H
 #define TRUCK_H
+
 #include "Types.h"
 
 class truck
 {
 private:
-	int TC, MT, Speed, DI, DJ;
-    int numberOfJournies;
+	int TC, MT, Speed, DI, DJ;	// TC: Truck Capacity, MT: Maintenance Time, DI: Delivey Interval, DJ: Delivery Journeys
 	TruckType TYP;
     TruckStatus STATUS;
 public:
 	truck();
-	truck(int tc, int mt, int speed, int numberOfJournies, TruckType type, TruckStatus);
+	truck(int tc, int mt, int speed, int dj, TruckType type, TruckStatus);
 	
 	void setCapacity (int tc);
 	void setMaintenanceTime (int mt);
@@ -21,6 +21,7 @@ public:
 	void setType (TruckType type);
     void setStatus(TruckStatus);
     void setNumberOfJournies(int);
+
 	int getCapacity ();
 	int getMaintenanceTime ();
 	int getSpeed ();

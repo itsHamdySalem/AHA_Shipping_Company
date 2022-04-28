@@ -5,8 +5,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
 #include "Types.h"
 #include "Company.h"
+
 using namespace std;
 
 class Company;
@@ -15,21 +17,24 @@ class UI
 {
 private:
     MODE mode;
-    void printCargosOfType(list<cargo*>&, CargoType, char, char);
+	Company* company;
+
+	void printCargosOfType(list<cargo*>&, CargoType, char, char);
     void printTrucksOfType(list<truck*>&, TruckType, char, char);
-    Company* company;
+    
 public:
+	UI();
 	UI(Company *);
-    UI();
 
 	void setMode ();
+
 	void ApplyMode ();
 	void ApplyInteractive ();
 	void ApplyStepByStep ();
 	void ApplySilent ();
 
 	bool LoadInputFile ();
-	void generateOutputFile ();
+	bool generateOutputFile ();
 
     void printCurrentTime(Company *);
     void printWaitingCargos(Company *);
@@ -40,8 +45,6 @@ public:
     void printDeliveredCargos(Company *);
 
 	~UI();
-
 };
 
 #endif
-

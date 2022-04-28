@@ -1,4 +1,7 @@
 #pragma once
+#ifndef CARGO_H
+#define CARGO_H
+
 #include "Types.h"
 
 class cargo
@@ -14,5 +17,8 @@ public:
 	int getID() const;
 	int getDist() const;
 	int getCost() const;
+
     CargoType getType () const;
 };
+
+#endif

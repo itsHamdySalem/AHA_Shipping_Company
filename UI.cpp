@@ -8,15 +8,13 @@ UI::UI(){
 
 
 UI::UI(Company* c){
-    company = c;
-    cout << "\n--------------------------------------------------------------\n";
+    
+	company = c;
+	
 	if (LoadInputFile())
 	{
-		cout << "\n--------------------------------------------------------------\n";
 		setMode();
-		cout << "\n--------------------------------------------------------------\n";
 		ApplyMode();
-		cout << "\n--------------------------------------------------------------\n";
 	}
 }
 
@@ -42,11 +40,11 @@ void UI::setMode ()
 		setMode();
 		break;
 	}
+	cout << "\n--------------------------------------------------------------\n";
 }
 
 void UI::ApplyMode ()
 {
-	//LoadInputFile();
 	switch (mode)
 	{
 	case interactive:
@@ -64,30 +62,38 @@ void UI::ApplyMode ()
 	default:
 		break;
 	}
+	cout << "\n--------------------------------------------------------------\n";
 }
+
 void UI::ApplyInteractive ()
 {
-	// apply
-	// _sleep(1000);
 	cout << "Simulation Starts...\n";
+
 	printCurrentTime(company);
-	printEmptyTrucks(company);
 	printWaitingCargos(company);
-	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
+	printDeliveredCargos(company);
+	// printEmptyTrucks(company);
+	if (generateOutputFile())
+		cout << "Simulation ends, Output file created...\n";
+	else
+		cout << "Error: output file is not generated...!\n";
 }
 void UI::ApplyStepByStep ()
 {
-	// apply
+	//_sleep(1000);
 	cout << "Simulation Starts...\n";
-	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
+	if (generateOutputFile())
+		cout << "Simulation ends, Output file created...\n";
+	else
+		cout << "Error: output file is not generated...!\n";
 }
 void UI::ApplySilent ()
 {
 	cout << "Simulation starts...\n";
-	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
+	if (generateOutputFile())
+		cout << "Simulation ends, Output file created...\n";
+	else
+		cout << "Error: output file is not generated...!\n";
 }
 
 bool UI::LoadInputFile ()
@@ -107,70 +113,64 @@ bool UI::LoadInputFile ()
 
 	int N, S, V;
 	InFile >> N >> S >> V;
-	// do something...
 	int NS, SS, VS;
 	InFile >> NS >> SS >> VS;
-	// do something...
 	int NTC, STC, VTC;
 	InFile >> NTC >> STC >> VTC;
-	// do something...
 	int J, CN, CS, CV;
 	InFile >> CN >> CS >> CV >> J;
-	// do something...
-    company->addTrucks(N, NORMAL_TRUCK, NS, NTC, CN, J);
+
+	company->addTrucks(N, NORMAL_TRUCK, NS, NTC, CN, J);
     company->addTrucks(S, SPECIAL_TRUCK, SS, STC, CS, J);
     company->addTrucks(V, VIP_TRUCK, VS, VTC, CV, J);
 
 
     int AutoP, MaxW;
 	InFile >> AutoP >> MaxW;
-	// do something...
-    company->setmaxWHours(MaxW);
+
+	company->setmaxWHours(MaxW);
     company->setautoPromotionLimitHours(AutoP);
 
 	int E;
 	InFile >> E;
-	// do something...
 
-	char Etype;
-	char TYP;
+	char Etype, TYP;
 	string ET;
 	int ID, DIST, LT, Cost, ExtraMoney;
 
 	for (int i = 0; i < E; i++)
 	{
 		InFile >> Etype;
-        Event *Event;
+        Event *event;
 		switch (Etype)
 		{
 		case 'R':
 			InFile >> TYP >> ET >> ID >> DIST >> LT >> Cost;
-			// do something...
-            Event = new PreparationEvent(TYP, ET, ID, DIST, LT, Cost);
+            event = new PreparationEvent(TYP, ET, ID, DIST, LT, Cost);
             break;
 		case 'X':
 			InFile >> ET >> ID;
-			// do something...
-            Event = new CancellationEvent(ET, ID);
+            event = new CancellationEvent(ET, ID);
 			break;
 		case 'P':
 			InFile >> ET >> ID >> ExtraMoney;
-			// do something...
-            Event = new PromotionEvent(ET, ID, ExtraMoney);
+            event = new PromotionEvent(ET, ID, ExtraMoney);
 			break;
 		default:
 			break;
 		}
-
-        company->addEvent(Event);
+        company->addEvent(event);
 	}
 	
 	InFile.close();
 	cout << "File has been loaded successfully!\n";
+	cout << "\n--------------------------------------------------------------\n";
 	return true;
 }
-void UI::generateOutputFile ()
+
+bool UI::generateOutputFile ()
 {
+	return true;
 }
 
 void UI::printCurrentTime(Company * cmp){

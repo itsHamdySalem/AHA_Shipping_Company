@@ -35,3 +35,6 @@ void PreparationEvent::Execute(Company* company){
 	company->addCargo(nw);
 }
 
+PreparationEvent::~PreparationEvent ()
+{
+}

@@ -24,3 +24,7 @@ void PromotionEvent::Execute(Company* company)
 {
 	company->promoteCargo(ID);
 }
+
+PromotionEvent::~PromotionEvent()
+{
+}

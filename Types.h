@@ -1,7 +1,8 @@
+#pragma once
 #ifndef TYPES_H
 #define TYPES_H
 
-// Modes
+// The Modes of the UI
 enum MODE
 {
     interactive,
@@ -9,7 +10,7 @@ enum MODE
     silent
 };
 
-// Cargo Type
+// The types of cargos
 enum CargoType
 {
     NORMAL_CARGO,
@@ -17,7 +18,7 @@ enum CargoType
     VIP_CARGO
 };
 
-// Truck Types
+// the types of trucks
 enum TruckType
 {
     NORMAL_TRUCK,

@@ -1,5 +1,7 @@
+#pragma once
 #ifndef NODE_H
 #define NODE_H
+
 template <typename ItemType>
 struct node
 {
@@ -7,4 +9,5 @@ struct node
     node *next;
     int priority;
 };
+
 #endif

@@ -8,12 +8,12 @@ truck::truck()
     STATUS = AVAILABLE_TRUCK;
 }
 
-truck::truck(int tc, int mt, int speed, int numberOfJournies, TruckType type, TruckStatus status)
+truck::truck(int tc, int mt, int speed, int dj, TruckType type, TruckStatus status)
 {
 	setCapacity (tc);
 	setMaintenanceTime (mt);
 	setSpeed (speed);
-	setNumberOfJournies (numberOfJournies);
+	setNumberOfJournies (dj);
 	setType (type);
     setStatus(status);
 }
@@ -34,8 +34,8 @@ void truck::setDeliveryInterval (int di)
 {
 	DI = (di > 0)? di : 0;
 }
-void truck::setNumberOfJournies(int nt){
-    numberOfJournies = nt;
+void truck::setNumberOfJournies(int dj){
+    DJ = (dj > 0)? dj : 0;
 }
 void truck::setType (TruckType type)
 {
@@ -70,4 +70,5 @@ TruckType truck::getType ()
 truck::~truck()
 {
 }
+
 

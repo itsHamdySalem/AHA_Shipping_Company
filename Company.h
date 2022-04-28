@@ -11,7 +11,6 @@
 #include "UI.h"
 
 class UI;
-
 class Event;
 
 class Company
@@ -23,7 +22,8 @@ private:
     priority_queue<cargo*> VIP_Cargos;
 
     list<truck*> VIP_Trucks, Special_Trucks, Normal_Trucks;
-    priority_queue<truck*> Assigned_Trucks;
+
+	priority_queue<truck*> Assigned_Trucks;
 
     list<cargo*> loadingCargos, waitingCargos, movingCargos, deliveredCargos;
     list<truck*> availableTrucks, loadingTrucks, movingTrucks, checkUpTrucks;
@@ -34,7 +34,8 @@ private:
 
     int currentTime, autoPromotionLimitHours, maxWHours;
 
-    void cancelCargo(int, list<cargo*>*);
+	void cancelCargo(int, list<cargo*>*);
+
 public:
 	Company();
  
@@ -70,4 +71,4 @@ public:
  
 #endif
  
- 
+

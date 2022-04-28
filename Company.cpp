@@ -1,9 +1,5 @@
 #include "Company.h"
 
-#include "Types.h"
-#include <iostream>
-using namespace std;
-
 Company::Company()
 {
     currentTime = 0;
