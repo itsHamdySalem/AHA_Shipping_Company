@@ -74,6 +74,7 @@ void UI::ApplyInteractive ()
 	    cin.ignore();
 		cout << "\n-------------------------------------------------------\n";
 		company->setCurrentTime(company->getCurrentTime() + 1);
+		company->checkIfAutoPPassed();
 	}
 }
 void UI::ApplyStepByStep ()

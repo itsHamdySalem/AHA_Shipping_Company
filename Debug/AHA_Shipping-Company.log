@@ -1,0 +1,96 @@
+﻿Build started 5/23/2022 4:33:34 PM.
+     1>Project "C:\Users\student\Downloads\AHA_Shipping_Company-main\AHA_Shipping-Company.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CancellationEvent.cpp Company.cpp Event.cpp PreparationEvent.cpp PromotionEvent.cpp Source.cpp UI.cpp truck.cpp
+         truck.cpp
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.h(13): error C2065: 'cargo' : undeclared identifier
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.h(13): error C2059: syntax error : '>'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.h(36): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(8): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(10): error C2065: 'LoadingTime' : undeclared identifier
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(10): error C2065: 'ID' : undeclared identifier
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(10): error C2065: 'Dist' : undeclared identifier
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(10): error C2065: 'Cost' : undeclared identifier
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(10): error C2143: syntax error : missing ',' before ';'
+     1>c:\users\student\downloads\aha_shipping_company-main\cargo.h(33): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(6): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(10): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(13): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(20): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(23): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(25): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(27): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(29): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(31): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(33): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(35): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(37): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(38): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(40): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(42): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(44): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(46): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(48): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(51): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(53): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(55): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(57): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(59): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(61): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(63): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(65): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(67): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(69): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(71): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(73): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(76): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(77): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(80): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\student\downloads\aha_shipping_company-main\truck.cpp(80): fatal error C1004: unexpected end-of-file found
+         UI.cpp
+         Company.cpp
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(201): error C3867: 'list<ItemType>::size': function call missing argument list; use '&list<ItemType>::size' to create a pointer to member
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(201): error C2446: '<' : no conversion from 'int (__thiscall list<ItemType>::* )(void)' to 'int'
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+                 There is no context in which this conversion is possible
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(201): error C2297: '<' : illegal, right operand has type 'int (__thiscall list<ItemType>::* )(void)'
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(212): error C3867: 'list<ItemType>::size': function call missing argument list; use '&list<ItemType>::size' to create a pointer to member
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(212): error C2446: '<' : no conversion from 'int (__thiscall list<ItemType>::* )(void)' to 'int'
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+                 There is no context in which this conversion is possible
+     1>c:\users\student\downloads\aha_shipping_company-main\company.cpp(212): error C2297: '<' : illegal, right operand has type 'int (__thiscall list<ItemType>::* )(void)'
+                 with
+                 [
+                     ItemType=cargo *
+                 ]
+         Generating Code...
+         Compiling...
+         Source.cpp
+         PromotionEvent.cpp
+         PreparationEvent.cpp
+         Event.cpp
+         CancellationEvent.cpp
+         Generating Code...
+     1>Done Building Project "C:\Users\student\Downloads\AHA_Shipping_Company-main\AHA_Shipping-Company.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.18

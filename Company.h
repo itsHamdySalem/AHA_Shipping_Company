@@ -71,6 +71,8 @@ public:
 
     void assignCargos();
 
+	void checkIfAutoPPassed();
+	void loadCargosIntoTruck(truck*);
 	~Company(){}
 };
  

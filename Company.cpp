@@ -1,5 +1,5 @@
 #include "Company.h"
-
+#include "cargo.h"
 Company::Company()
 {
 	currentTime = 0;
@@ -37,7 +37,7 @@ void Company::promoteCargo(int cargoID){
 
             Normal_Cargos.remove(currentCargo);
 			currentCargo->setType(VIP_CARGO);
-            VIP_Cargos.push(currentCargo, 0);
+			VIP_Cargos.push(currentCargo, currentCargo->getReadyTime() + currentCargo->getCost());
             break;
         }
     }
@@ -183,4 +183,40 @@ void Company::moveCargo ()
 	moveCargoOfType(NORMAL_CARGO, waitingCargos);
 	moveCargoOfType(SPECIAL_CARGO,waitingCargos);
 	moveCargoOfType(VIP_CARGO,waitingCargos);
+}
+
+void Company::checkIfAutoPPassed(){
+	int sz = Normal_Cargos.size();
+	for(int i=0;i<sz;i++){
+		cargo* cg = Normal_Cargos.at(i);
+		if(currentTime - cg->getReadyTime() == autoPromotionLimitHours){
+			promoteCargo(cg->getID());
+		}
+	}
+}
+
+void Company::loadCargosIntoTruck(truck *c){
+	int cargosAvailable=0;bool mustFill = 0;
+	list<cargo*> waitingCargos = getWaitingCargos();
+	for(int i=0;i<waitingCargos.size;i++){
+		if(currentTime - waitingCargos.at(i)->getReadyTime() >= maxWHours) mustFill = 1;  
+		if(waitingCargos.at(i)->getType() == (CargoType)c->getType()){
+			cargosAvailable++;
+		}
+	}
+
+	mustFill&=(c->getType() != VIP_TRUCK);
+	if(cargosAvailable >= c->getCapacity() || mustFill){
+
+		int cnt = 0;
+		for(int i=0;i<waitingCargos.size;i++){
+			if (cnt == c->getCapacity()) break;
+			if(currentTime - waitingCargos.at(i)->getReadyTime() >= maxWHours || 
+				waitingCargos.at(i)->getType() == (CargoType)c->getType()){
+				c->addCargo(waitingCargos.at(i));
+				cnt++;
+				waitingCargos.remove(waitingCargos.at(i));
+			}
+		}
+	}
 }

@@ -1,4 +1,5 @@
 #include "truck.h"
+#include "cargo.h"
 
 
 truck::truck()
@@ -65,6 +66,10 @@ int truck::getDeliveryInterval ()
 TruckType truck::getType ()
 {
 	return TYP;
+}
+
+void truck::addCargo(cargo* cg){
+	this->cargosInside.add(cg);
 }
 
 truck::~truck()
