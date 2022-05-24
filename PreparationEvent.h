@@ -1,16 +1,16 @@
 #pragma once
-#include "Event.h"
+#ifndef PREPARATION_EVENT_H
+#define PREPARATION_EVENT_H
 
-using namespace std;
+#include "Event.h"
 
 class PreparationEvent :
     public Event
 {
+private:
     CargoType cargotype;
     int Time, ID, Dist, LoadingTime, Cost;
-
 public:
-
     PreparationEvent(char type, string time, int id, int dist, int LT, int cost);
 
     void setCargoType(char);
@@ -21,5 +21,8 @@ public:
 
     void Execute(Company*);
 
+	~PreparationEvent ();
 };
 
+
+#endif

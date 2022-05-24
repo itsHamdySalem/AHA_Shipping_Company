@@ -3,39 +3,39 @@
 
 truck::truck()
 {
-	TC = MT = Speed = DI = 0;
-	TYP = NORMAL_TRUCK;
+	NumberOfJournies = ReadyTime = 0;
     STATUS = AVAILABLE_TRUCK;
 }
 
-truck::truck(int tc, int mt, int speed, int numberOfJournies, TruckType type, TruckStatus status)
+truck::truck(int tc, int mt, int speed, int MJ, TruckType type, TruckStatus status)
 {
 	setCapacity (tc);
-	setMaintenanceTime (mt);
+	setCheckUpTime (mt);
 	setSpeed (speed);
-	setNumberOfJournies (numberOfJournies);
+	setMaxJournies(MJ);
 	setType (type);
     setStatus(status);
 }
 
 void truck::setCapacity (int tc)
 {
-	TC = (tc > 0)? tc : 0;
+	TruckCapacity = (tc > 0)? tc : 0;
 }
-void truck::setMaintenanceTime (int mt)
+void truck::setCheckUpTime (int mt)
 {
-	MT = (mt > 0)? mt : 0;
+	CheckupTime = (mt > 0)? mt : 0;
 }
 void truck::setSpeed (int speed)
 {
 	Speed = (speed > 0)? speed : 0;
 }
-void truck::setDeliveryInterval (int di)
+void truck::setMaxJournies(int MJ)
 {
-	DI = (di > 0)? di : 0;
+	MaxJournies = MJ;
 }
-void truck::setNumberOfJournies(int nt){
-    numberOfJournies = nt;
+void truck::setReadyTime(int t)
+{
+	ReadyTime = t;
 }
 void truck::setType (TruckType type)
 {
@@ -48,19 +48,29 @@ void truck::setStatus(TruckStatus status){
 
 int truck::getCapacity ()
 {
-	return TC;
+	return TruckCapacity;
 }
-int truck::getMaintenanceTime ()
+int truck::getCheckUpTime ()
 {
-	return MT;
+	return CheckupTime;
 }
 int truck::getSpeed ()
 {
 	return Speed;
 }
-int truck::getDeliveryInterval ()
+int truck::getReadyTime()
 {
-	return DI;
+	return ReadyTime;
+}
+
+int truck::getMaxJournies()
+{
+	return MaxJournies;
+}
+
+int truck::getNumberOfJournies()
+{
+	return NumberOfJournies;
 }
 TruckType truck::getType ()
 {
@@ -70,4 +80,5 @@ TruckType truck::getType ()
 truck::~truck()
 {
 }
+
 

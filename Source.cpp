@@ -3,8 +3,9 @@
 
 int main ()
 {
-	cout << "\n\n========================= AHA Shipping Company =========================\n\n";
+	cout << "\n============================ AHA Shipping Company ============================\n";
 	Company AHA_Shipping_Company;
+	cout << "\n==============================================================================\n";
 	system("PAUSE");
 	return 0;
 }

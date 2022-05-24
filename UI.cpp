@@ -8,16 +8,8 @@ UI::UI(){
 
 
 UI::UI(Company* c){
-    company = c;
-    cout << "\n--------------------------------------------------------------\n";
-	if (LoadInputFile())
-	{
-		cout << "\n--------------------------------------------------------------\n";
-		setMode();
-		cout << "\n--------------------------------------------------------------\n";
-		ApplyMode();
-		cout << "\n--------------------------------------------------------------\n";
-	}
+    
+	company = c;
 }
 
 void UI::setMode ()
@@ -38,15 +30,15 @@ void UI::setMode ()
 		mode = silent;
 		break;
 	default:
-		cout << "Unvalid mode...\nYou should enter a mode number from {1, 2, 3}...!\n";
+		cout << "Invalid mode...\nYou should enter a mode number from {1, 2, 3}...!\n";
 		setMode();
 		break;
 	}
+	cout << "\n--------------------------------------------------------------\n";
 }
 
 void UI::ApplyMode ()
 {
-	//LoadInputFile();
 	switch (mode)
 	{
 	case interactive:
@@ -64,30 +56,38 @@ void UI::ApplyMode ()
 	default:
 		break;
 	}
+	cout << "\n--------------------------------------------------------------\n";
 }
+
 void UI::ApplyInteractive ()
 {
-	// apply
-	// _sleep(1000);
-	cout << "Simulation Starts...\n";
-	printCurrentTime(company);
-	printEmptyTrucks(company);
-	printWaitingCargos(company);
-	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
+	cout << "Simulation Starts...\n\n";
+	while (company->getCurrentTime() < 71)
+	{
+		company->SendTrucksForCheckUp();
+		company->CheckAutoPromotion();
+		if (company->getCurrentTime() % 24 > 4 && company->getCurrentTime() % 24 < 23) {
+			company->AssignCargos();
+		}
+		// company->checkdelivered();
+		printCurrentTime(company);
+		printWaitingCargos(company);
+		printDeliveredCargos(company);
+		cout << "press ENTER to continue..\n";
+	    cin.ignore();
+		cout << "\n-------------------------------------------------------\n";
+		company->setCurrentTime(company->getCurrentTime() + 1);
+	}
 }
 void UI::ApplyStepByStep ()
 {
-	// apply
+	//_sleep(1000);
 	cout << "Simulation Starts...\n";
 	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
 }
 void UI::ApplySilent ()
 {
-	cout << "Simulation starts...\n";
 	generateOutputFile();
-	cout << "Simulation ends, Output file created...\n";
 }
 
 bool UI::LoadInputFile ()
@@ -101,81 +101,85 @@ bool UI::LoadInputFile ()
 	InFile.open(FileName+".txt");
 	if (!InFile.is_open())
 	{
-		cout << FileName << " not fount!\n";
+		cout << FileName << " not found!\n";
 		return false;
 	}
 
 	int N, S, V;
 	InFile >> N >> S >> V;
-	// do something...
 	int NS, SS, VS;
 	InFile >> NS >> SS >> VS;
-	// do something...
 	int NTC, STC, VTC;
 	InFile >> NTC >> STC >> VTC;
-	// do something...
 	int J, CN, CS, CV;
 	InFile >> CN >> CS >> CV >> J;
-	// do something...
-    company->addTrucks(N, NORMAL_TRUCK, NS, NTC, CN, J);
+
+	company->addTrucks(N, NORMAL_TRUCK, NS, NTC, CN, J);
     company->addTrucks(S, SPECIAL_TRUCK, SS, STC, CS, J);
     company->addTrucks(V, VIP_TRUCK, VS, VTC, CV, J);
 
 
     int AutoP, MaxW;
 	InFile >> AutoP >> MaxW;
-	// do something...
-    company->setmaxWHours(MaxW);
+
+	company->setmaxWHours(MaxW);
     company->setautoPromotionLimitHours(AutoP);
 
 	int E;
 	InFile >> E;
-	// do something...
 
-	char Etype;
-	char TYP;
+	char Etype, TYP;
 	string ET;
 	int ID, DIST, LT, Cost, ExtraMoney;
 
 	for (int i = 0; i < E; i++)
 	{
 		InFile >> Etype;
-        Event *Event;
+        Event *event;
 		switch (Etype)
 		{
 		case 'R':
 			InFile >> TYP >> ET >> ID >> DIST >> LT >> Cost;
-			// do something...
-            Event = new PreparationEvent(TYP, ET, ID, DIST, LT, Cost);
+            event = new PreparationEvent(TYP, ET, ID, DIST, LT, Cost);
             break;
 		case 'X':
 			InFile >> ET >> ID;
-			// do something...
-            Event = new CancellationEvent(ET, ID);
+            event = new CancellationEvent(ET, ID);
 			break;
 		case 'P':
 			InFile >> ET >> ID >> ExtraMoney;
-			// do something...
-            Event = new PromotionEvent(ET, ID, ExtraMoney);
+            event = new PromotionEvent(ET, ID, ExtraMoney);
 			break;
 		default:
 			break;
 		}
-
-        company->addEvent(Event);
+        company->addEvent(event);
 	}
 	
 	InFile.close();
 	cout << "File has been loaded successfully!\n";
+	cout << "\n--------------------------------------------------------------\n";
 	return true;
 }
-void UI::generateOutputFile ()
+
+bool UI::generateOutputFile ()
 {
+	// TODO
+	if (1)	// if generated successfully
+	{
+		cout << "Simulation ends, Output file created...\n";
+		return true;
+	}
+	else
+	{
+		cout << "Error: output file is not generated...!\n";
+		return false;
+	}
 }
 
 void UI::printCurrentTime(Company * cmp){
     int hr = cmp->getCurrentTime();
-    cout << "Current Time (Day:Hour):" << hr/24 << ":" << hr%24 << endl;
+    cout << "Current Time (Day:Hour):" << hr/24 + 1 << ":" << hr%24 << endl;
 }
 
 void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBracket, char closeBracket){
@@ -209,8 +213,7 @@ void UI::printTrucksOfType(list<truck*>& trucks, TruckType tType, char openBrack
 
 
 void UI::printWaitingCargos(Company *cmp){
-    list<cargo*> cargos;
-    cmp->getWaitingCargos(cargos);
+    list<cargo*>& cargos = cmp->getWaitingCargos();
     cout << cargos.size() << " Waiting Cargos:";
 
     printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
@@ -266,15 +269,13 @@ void UI::printInCheckTrucks(Company *cmp){
 }
 
 void UI::printDeliveredCargos(Company *cmp){
-    list<cargo*> cargos;
-    cmp->getDeliveredCargos(cargos);
+    list<cargo*>& cargos = cmp->getDeliveredCargos();
     cout << cargos.size() << " Delivered Cargos:";
 
     printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
     printCargosOfType(cargos, SPECIAL_CARGO, '(', ')');
     printCargosOfType(cargos, VIP_CARGO, '{', '}');
     cout << "\n-----------------------------------------\n";
-
 }
 
 

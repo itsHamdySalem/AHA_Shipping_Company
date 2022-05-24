@@ -1,11 +1,14 @@
 #pragma once
+#ifndef	CANCELLATION_EVENT_H
+#define	CANCELLATION_EVENT_H
+
 #include "Event.h"
 
 class CancellationEvent :
     public Event
 {
+private:
     int Time, ID;
-
 public:
     CancellationEvent(string t, int id);
 
@@ -18,3 +21,5 @@ public:
     void Execute(Company*);
 };
 
+
+#endif

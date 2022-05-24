@@ -6,7 +6,7 @@ Event::Event(void)
 }
 
 bool Event::ifTimeCome(int curHour){
-    return this->ET <= curHour;
+    return this->ET == curHour;
 }
 
 
