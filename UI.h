@@ -19,9 +19,9 @@ private:
     MODE mode;
 	Company* company;
 
-	void printCargosOfType(list<cargo*>&, CargoType, char, char);
+	void printCargosOfType(list<cargo*>&, CargoType, char, char, bool);
     void printTrucksOfType(list<truck*>&, TruckType, char, char);
-    
+    string toTimeFormat(int);
 public:
 	UI();
 	UI(Company *);

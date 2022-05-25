@@ -17,7 +17,19 @@ public:
 		count = 0;
 	}
 
-	bool empty ()
+    priority_queue (priority_queue const &q)
+    {
+        front = rear = nullptr;
+        count = 0;
+        node<ItemType> * temp = q.front;
+        while (temp){
+            this->push(temp->data, temp->priority);
+            temp = temp->next;
+        }
+    }
+
+
+    bool empty ()
 	{
 		return count == 0;
 	}

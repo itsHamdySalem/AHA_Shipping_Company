@@ -18,7 +18,7 @@ class Company
 private:
 
     list<cargo*> Normal_Cargos;
-    queue<cargo*> Special_Cargos;
+    list<cargo*> Special_Cargos;
     priority_queue<cargo*> VIP_Cargos;
 
     list<truck*> VIP_Trucks, Special_Trucks, Normal_Trucks;
@@ -33,9 +33,15 @@ private:
     UI *ui;
 
     int currentTime, autoPromotionLimitHours, maxWHours;
+    int activeTime;double utilization;
+    int promotedCargos;
 
 	void cancelCargo(int, list<cargo*>&);
 	void moveCargoOfType(CargoType type, list<cargo*> &cargos);
+    void SendTrucksForCheckUp(list<truck*> &);
+    void AssignCargos(list<cargo*>&, list<truck*>&, bool&);
+    void AssignCargos(priority_queue<cargo*>&, list<truck*>&, bool&);
+    void AssignMaxW(list<cargo*>&, list<truck*>&, bool&);
 public:
 	Company();
  
@@ -61,17 +67,25 @@ public:
     void getLoadingTrucks(list<truck*>&);
     void getEmptyTrucks(list<truck*>&);
     void getCheckUpTrucks(list<truck*>&);
+    void SendTrucksForCheckUp();
+    void CheckAutoPromotion();
     list<cargo*>& getDeliveredCargos();
 
 	// phase I : move cargos from waiting to delivered
 	void moveCargo ();
 
-    void addTrucks(int N, TruckType typ, int speed, int capacity, int journies, int durationCheckup);
+    void addTrucks(int N, TruckType typ, int speed, int capacity, int journies, int durationCheckup, int id);
 	void moveTrucks();
 
-    void assignCargos();
+    void AssignCargos();
 
-	~Company(){}
+    void checkEachHour();
+
+    void getCalculations(priority_queue<cargo*> &c, list<truck*> &ls);
+    int getPromotedCargos();
+    int getActiveTime();
+
+    ~Company(){}
 };
  
 #endif

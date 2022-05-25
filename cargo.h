@@ -7,7 +7,7 @@
 class cargo
 {
 private:
-	int ReadyTime, LoadingTime, ID, Dist, Cost;
+	int ReadyTime, LoadingTime, ID, Dist, Cost, DeliveredTime, waitTime, truckDeliveredID;
 	CargoType TYP;
 	CargoStatus Status;
 public:
@@ -20,6 +20,9 @@ public:
 	void setCost (int);
 	void setType(CargoType);
 	void setStatus(CargoStatus);
+	void setDeliveredTime(int t);
+    void setWaitTime(int t);
+    void setTruckDeliveredID(int);
 
 	int getReadyTime() const;
 	int getLoadingTime() const;
@@ -28,6 +31,9 @@ public:
 	int getCost() const;
     CargoType getType () const;
 	CargoStatus getStatus () const;
+	int getDeliveredTime() const;
+    int getWaitTime() const;
+    int getTruckDeliveredID() const;
 
 	~cargo();
 };
