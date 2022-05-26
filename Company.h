@@ -62,11 +62,11 @@ public:
 	void setCurrentTime(int time);
 
     list<cargo*>& getWaitingCargos();
-    void getMovingCargos(list<cargo*>&);
+    list<cargo*>& getMovingCargos();
 
-    void getLoadingTrucks(list<truck*>&);
-    void getEmptyTrucks(list<truck*>&);
-    void getCheckUpTrucks(list<truck*>&);
+    list<truck*>& getLoadingTrucks();
+    list<truck*>& getEmptyTrucks();
+    list<truck*>& getCheckUpTrucks();
     void SendTrucksForCheckUp();
     void CheckAutoPromotion();
     list<cargo*>& getDeliveredCargos();

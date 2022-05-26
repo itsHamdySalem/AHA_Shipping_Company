@@ -2,7 +2,7 @@
 #include "PreparationEvent.h"
 #include "CancellationEvent.h"
 #include "PromotionEvent.h"
-#include <Windows.h>
+#include <unistd.h>
 #include <fstream>
 
 UI::UI(){
@@ -10,7 +10,7 @@ UI::UI(){
 
 
 UI::UI(Company* c){
-    
+
 	company = c;
 }
 
@@ -69,12 +69,15 @@ void UI::ApplyInteractive ()
         company->checkEachHour();
 		printCurrentTime(company);
 		printWaitingCargos(company);
-		printLoadingTrucks(company);
-		printEmptyTrucks(company);
-		printMovingCargos(company);
-		printInCheckTrucks(company);
-		printDeliveredCargos(company);
-		cout << "press any key to continue..\n";
+
+        printLoadingTrucks(company);
+        printEmptyTrucks(company);
+        printMovingCargos(company);
+        printInCheckTrucks(company);
+
+
+        printDeliveredCargos(company);
+		cout << "press ENTER to continue..\n";
 	    cin.ignore();
 		cout << "\n-------------------------------------------------------\n";
 		company->setCurrentTime(company->getCurrentTime() + 1);
@@ -90,9 +93,10 @@ void UI::ApplyStepByStep ()
         printCurrentTime(company);
         printWaitingCargos(company);
         printDeliveredCargos(company);
+        cout << "press ENTER to continue..\n";
         cout << "\n-------------------------------------------------------\n";
         company->setCurrentTime(company->getCurrentTime() + 1);
-        Sleep(1000);
+        sleep(1);
     }
 
 	generateOutputFile();
@@ -173,7 +177,7 @@ bool UI::LoadInputFile ()
 		}
         company->addEvent(event);
 	}
-	
+
 	InFile.close();
 	cout << "File has been loaded successfully!\n";
 	cout << "\n--------------------------------------------------------------\n";
@@ -258,7 +262,7 @@ void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBrack
 	cout << ' ';
     for(int i=0;i<cargos.size();i++) {
         if(cargos.at(i)->getType() == cType){
-            if(forDelivered && !(cargos.at(i)->getDeliveredTime() <= company->getCurrentTime())) continue;
+            if(forDelivered && cargos.at(i)->getStatus() != DELIVERED_CARGO) continue;
 			if (isFirstOfType) cout << openBracket << cargos.at(i)->getID();
             else cout << ',' << cargos.at(i)->getID();
             isFirstOfType=0;
@@ -295,19 +299,18 @@ void UI::printWaitingCargos(Company *cmp){
 }
 
 void UI::printLoadingTrucks(Company *cmp){
-    list<truck*> trucks;
-    cmp->getLoadingTrucks(trucks);
+    list<truck*>& trucks = cmp->getLoadingTrucks();
     cout << trucks.size() << " Loading Trucks:";
 
     printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');
     printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')');
     printTrucksOfType(trucks, VIP_TRUCK, '{', '}');
+
     cout << "\n-----------------------------------------\n";
 }
 
 void UI::printEmptyTrucks(Company *cmp){
-    list<truck*> trucks;
-    cmp->getEmptyTrucks(trucks);
+    list<truck*>& trucks = cmp->getEmptyTrucks();
     cout << trucks.size() << " Empty Trucks:";
 
     printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');
@@ -318,8 +321,7 @@ void UI::printEmptyTrucks(Company *cmp){
 }
 
 void UI::printMovingCargos(Company *cmp){
-    list<cargo*> cargos;
-    cmp->getMovingCargos(cargos);
+    list<cargo*>& cargos = cmp->getMovingCargos();
     cout << cargos.size() << " Moving Cargos:";
 
     printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
@@ -330,8 +332,7 @@ void UI::printMovingCargos(Company *cmp){
 }
 
 void UI::printInCheckTrucks(Company *cmp){
-    list<truck*> trucks;
-    cmp->getCheckUpTrucks(trucks);
+    list<truck*>& trucks = cmp->getCheckUpTrucks();
     cout << trucks.size() << " Check Up Trucks:";
 
     printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');

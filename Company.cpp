@@ -319,20 +319,20 @@ list<cargo*>& Company::getWaitingCargos(){
     return waitingCargos;
 }
 
-void Company::getMovingCargos(list<cargo*> & mCargos){
-    mCargos = movingCargos;
+list<cargo*>& Company::getMovingCargos(){
+    return movingCargos;
 }
 
-void Company::getLoadingTrucks(list<truck*> &lTrucks){
-    lTrucks = loadingTrucks;
+list<truck*>& Company::getLoadingTrucks(){
+    return loadingTrucks;
 }
 
-void Company::getEmptyTrucks(list<truck*> &eTrucks){
-    eTrucks = availableTrucks;
+list<truck*>& Company::getEmptyTrucks(){
+    return availableTrucks;
 }
 
-void Company::getCheckUpTrucks(list<truck*> &cTrucks){
-    cTrucks = checkUpTrucks;
+list<truck*>& Company::getCheckUpTrucks(){
+    return checkUpTrucks;
 }
 
 list<cargo*>& Company::getDeliveredCargos(){
