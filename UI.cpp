@@ -2,7 +2,7 @@
 #include "PreparationEvent.h"
 #include "CancellationEvent.h"
 #include "PromotionEvent.h"
-#include <unistd.h>
+#include <Windows.h>
 #include <fstream>
 
 UI::UI(){
@@ -69,8 +69,12 @@ void UI::ApplyInteractive ()
         company->checkEachHour();
 		printCurrentTime(company);
 		printWaitingCargos(company);
+		printLoadingTrucks(company);
+		printEmptyTrucks(company);
+		printMovingCargos(company);
+		printInCheckTrucks(company);
 		printDeliveredCargos(company);
-		cout << "press ENTER to continue..\n";
+		cout << "press any key to continue..\n";
 	    cin.ignore();
 		cout << "\n-------------------------------------------------------\n";
 		company->setCurrentTime(company->getCurrentTime() + 1);
@@ -86,10 +90,9 @@ void UI::ApplyStepByStep ()
         printCurrentTime(company);
         printWaitingCargos(company);
         printDeliveredCargos(company);
-        cout << "press ENTER to continue..\n";
         cout << "\n-------------------------------------------------------\n";
         company->setCurrentTime(company->getCurrentTime() + 1);
-        sleep(1);
+        Sleep(1000);
     }
 
 	generateOutputFile();
