@@ -72,13 +72,13 @@ void Company::addTruck(truck *c){
     availableTrucks.add(c);
     switch(c->getType()){
         case NORMAL_TRUCK:
-            Normal_Trucks.add(c);
+            Normal_Trucks.push(c);
             break;
         case SPECIAL_TRUCK:
-            Special_Trucks.add(c);
+            Special_Trucks.push(c);
             break;
         case VIP_TRUCK:
-            VIP_Trucks.add(c);
+            VIP_Trucks.push(c);
             break;
         default:
             break;
@@ -103,22 +103,37 @@ void Company::cancelCargo(int cargoID, list<cargo*> &ls){
     }
 }
 
-void Company::SendTrucksForCheckUp()
-{
-    SendTrucksForCheckUp(Normal_Trucks);
+void Company::SendTrucksForCheckUp(){
+
+    /*SendTrucksForCheckUp(Normal_Trucks);
     SendTrucksForCheckUp(Special_Trucks);
-    SendTrucksForCheckUp(VIP_Trucks);
+    SendTrucksForCheckUp(VIP_Trucks);*/
 }
 
-void Company::SendTrucksForCheckUp(list<truck*> &ls)
+bool Company::SendTruckForCheckUp(truck* &ls)
 {
-    int sz = ls.size();
-    for (int i = 0; i < sz; i++) {
-        if (ls.at(i)->getNumberOfJournies()%ls.at(i)->getMaxJournies() == 0 && ls.at(i)->getNumberOfJournies()) {
-            ls.at(i)->setReadyTime(currentTime + ls.at(i)->getReadyTime() + ls.at(i)->getCheckUpTime());
+    if (ls->getNumberOfJournies() == ls->getMaxJournies()) {
+        ls->setReadyTime(currentTime + ls->getCheckUpTime());
+        checkUpTrucks.add(ls);
+        return true;
+    }
+    return false;
+}
+
+void Company::checkCheckupTrucks()
+{
+    list<truck*> &checkUpTrucksIn = checkUpTrucks;
+    for(int i=0;i<checkUpTrucksIn.size();i++){
+        auto cur = checkUpTrucksIn.at(i);
+        if(cur->getReadyTime() <= currentTime){
+            cur->setNumberOfJournies(0);
+            checkUpTrucks.remove(cur);
+            i--;
+            addTruck(cur);
         }
     }
 }
+
 
 void Company::CheckAutoPromotion()
 {
@@ -157,8 +172,9 @@ void Company::AssignCargos(){
     // ASSIGN NORMAL (NORMAL => VIP)
 }
 
-void Company::AssignCargos(priority_queue<cargo*>& Cargos, list<truck*>& Trucks, bool& done)
+void Company::AssignCargos(priority_queue<cargo*>& Cargos, queue<truck*>& Trucks, bool& done)
 {
+
     if (done) return;
     priority_queue <cargo*> ready;
     while (!Cargos.empty()) {
@@ -172,12 +188,13 @@ void Company::AssignCargos(priority_queue<cargo*>& Cargos, list<truck*>& Trucks,
         ready.push(cur, 100000 - cur->getReadyTime() + cur->getCost() + 100000 - cur->getDist());
     }
 
-    if(ready.empty()) return;
+    if(ready.empty() || Trucks.empty()) return;
 
-    for (int i = 0; !done && i < Trucks.size(); i++) {
-        truck* cur = Trucks.at(i);
+    while(!done && !Trucks.empty()) {
+        truck* cur = Trucks.Front();
         if (cur->getReadyTime() <= currentTime) {
             if (ready.size() >= cur->getCapacity()) {
+                Trucks.pop();
                 done = true;
                 int tot = 0, farest = 0;
                 priority_queue<cargo*> dumpq(ready); // a dum pq just to calculate the total loading time and farest distance.
@@ -188,25 +205,28 @@ void Company::AssignCargos(priority_queue<cargo*>& Cargos, list<truck*>& Trucks,
                     tot += curr->getLoadingTime();
                     farest = max(farest, curr->getDist());
                 }
-                cur->setReadyTime(currentTime+(tot + ceil(farest / cur->getSpeed())) * 2);
+                cur->setReadyTime(currentTime+(tot + ceil(1.0 * farest / cur->getSpeed())) * 2);
+                movingTrucks.push(cur, -cur->getReadyTime());
+                availableTrucks.remove(cur);
                 cur->setNumberOfJournies(cur->getNumberOfJournies()+1);
                 activeTime += (tot + ceil(farest / cur->getSpeed()));
-                cur->setActiveTime(cur->getActiveTime() + tot + ceil(farest / cur->getSpeed()));
+                cur->setActiveTime(cur->getActiveTime() + tot + ceil(1.0 * farest / cur->getSpeed()));
                 cnt = cur->getCapacity();
                 while (cnt && !ready.empty()) {
                     auto curr = ready.Front();
                     ready.pop(); cnt--;
                     curr->setTruckDeliveredID(cur->getID());
                     curr->setWaitTime(currentTime - curr->getReadyTime());
-                    curr->setDeliveredTime(currentTime+tot + ceil(curr->getDist() / cur->getSpeed())+curr->getLoadingTime());
+                    curr->setDeliveredTime(currentTime+tot + ceil(1.0 * curr->getDist() / cur->getSpeed())+curr->getLoadingTime());
                     activeTime += curr->getLoadingTime();
                     cur->setActiveTime(cur->getActiveTime() + curr->getLoadingTime());
                     curr->setStatus(DELIVERED_CARGO);
                     cur->setTotalCargos(cur->getTotalCargos()+1);
+                    movingCargos.add(curr);
                     deliveredCargos.add(curr);
                     waitingCargos.remove(curr);
                 }
-            }
+            } else break;
         }
     }
 
@@ -218,19 +238,20 @@ void Company::AssignCargos(priority_queue<cargo*>& Cargos, list<truck*>& Trucks,
 
 }
 
-void Company::AssignCargos(list<cargo*>& Cargos, list<truck*>& Trucks, bool &done)
+void Company::AssignCargos(list<cargo*>& Cargos, queue<truck*>& Trucks, bool &done)
 {
-    if (done) return;
+    if (done || Trucks.empty()) return;
     int cnt = 0;
     for (int i = 0; i < Cargos.size(); i++) {
         if (Cargos.at(i)->getStatus() == WAITING_CARGO && Cargos.at(i)->getReadyTime() <= currentTime) cnt++;
     }
     if(!cnt) return;
-    for (int i = 0; !done && i < Trucks.size(); i++) {
-        truck* cur = Trucks.at(i);
+    while(!done && !Trucks.empty()) {
+        truck* cur = Trucks.Front();
         if (cur->getReadyTime() <= currentTime) {
             cnt = min(cnt, cur->getCapacity());
             if (cnt == cur->getCapacity()) {
+                Trucks.pop();
                 done = true;
                 int tot = 0, farest = 0, dumcnt = cnt;
                 for (int j = 0; dumcnt && j < Cargos.size(); j++) {
@@ -240,39 +261,43 @@ void Company::AssignCargos(list<cargo*>& Cargos, list<truck*>& Trucks, bool &don
                         dumcnt--;
                     }
                 }
-                cur->setReadyTime(currentTime+(tot + ceil(farest / cur->getSpeed())) * 2);
+                cur->setReadyTime(currentTime+(tot + ceil(1.0 * farest / cur->getSpeed())) * 2);
+                movingTrucks.push(cur, -cur->getReadyTime());
+                availableTrucks.remove(cur);
                 cur->setNumberOfJournies(cur->getNumberOfJournies()+1);
                 activeTime += (tot + ceil(farest / cur->getSpeed()));
-                cur->setActiveTime(cur->getActiveTime() + tot + ceil(farest / cur->getSpeed()));
+                cur->setActiveTime(cur->getActiveTime() + tot + ceil(1.0 * farest / cur->getSpeed()));
                 for (int j = 0; cnt && j < Cargos.size(); j++) {
                     if (Cargos.at(j)->getStatus() == WAITING_CARGO && Cargos.at(j)->getReadyTime() <= currentTime) {
                         Cargos.at(j)->setTruckDeliveredID(cur->getID());
                         Cargos.at(j)->setWaitTime(currentTime - Cargos.at(j)->getReadyTime());
-                        Cargos.at(j)->setDeliveredTime(currentTime+tot + ceil(Cargos.at(j)->getDist() / cur->getSpeed())+ Cargos.at(j)->getLoadingTime());
+                        Cargos.at(j)->setDeliveredTime(currentTime+tot + ceil(1.0 * Cargos.at(j)->getDist() / cur->getSpeed())+ Cargos.at(j)->getLoadingTime());
                         activeTime += Cargos.at(j)->getLoadingTime();
                         cur->setActiveTime(cur->getActiveTime() + activeTime);
                         Cargos.at(j)->setStatus(DELIVERED_CARGO);
                         cur->setTotalCargos(cur->getTotalCargos()+1);
+                        movingCargos.add(Cargos.at(j));
                         deliveredCargos.add(Cargos.at(j));
                         waitingCargos.remove(Cargos.at(j));
+                        j--;
                         cnt--;
                     }
                 }
-            }
+            } else break;
         }
     }
 }
 
-void Company::AssignMaxW(list<cargo*>& Cargos, list<truck*>& Trucks, bool& done)
+void Company::AssignMaxW(list<cargo*>& Cargos, queue<truck*>& Trucks, bool& done)
 {
-    if (done) return;
+    if (done || Trucks.empty()) return;
     int cnt = 0;
     for (int i = 0; i < Cargos.size(); i++) {
         if (Cargos.at(i)->getStatus() == WAITING_CARGO && currentTime - Cargos.at(i)->getReadyTime() >= maxWHours) cnt++;
     }
     if(!cnt) return;
-    for (int i = 0; i < Trucks.size() && !done; i++) {
-        auto cur = Trucks.at(i);
+    while(!done && !Trucks.empty()) {
+        auto cur = Trucks.Front();
         if (cur->getReadyTime() <= currentTime) {
             done = true;
             int tot = 0, farest = 0;
@@ -285,21 +310,26 @@ void Company::AssignMaxW(list<cargo*>& Cargos, list<truck*>& Trucks, bool& done)
                     dumcnt--;
                 }
             }
-            cur->setReadyTime(currentTime + (tot + ceil(farest / cur->getSpeed())) * 2);
+            Trucks.pop();
+            cur->setReadyTime(currentTime + (tot + ceil(1.0 * farest / cur->getSpeed())) * 2);
+            movingTrucks.push(cur, -cur->getReadyTime());
+            availableTrucks.remove(cur);
             cur->setNumberOfJournies(cur->getNumberOfJournies()+1);
             activeTime += (tot + ceil(farest / cur->getSpeed()));
-            cur->setActiveTime(cur->getActiveTime() + tot + ceil(farest / cur->getSpeed()));
+            cur->setActiveTime(cur->getActiveTime() + tot + ceil(1.0 * farest / cur->getSpeed()));
             for (int j = 0; cnt; j++) {
                 if (Cargos.at(j)->getStatus() == WAITING_CARGO && currentTime - Cargos.at(j)->getReadyTime() >= maxWHours) {
                     Cargos.at(j)->setTruckDeliveredID(cur->getID());
                     Cargos.at(j)->setWaitTime(currentTime - Cargos.at(j)->getReadyTime());
-                    Cargos.at(j)->setDeliveredTime(currentTime + tot + ceil(Cargos.at(j)->getDist() / cur->getSpeed()) + Cargos.at(j)->getLoadingTime());
+                    Cargos.at(j)->setDeliveredTime(currentTime + tot + ceil(1.0 * Cargos.at(j)->getDist() / cur->getSpeed()) + Cargos.at(j)->getLoadingTime());
                     activeTime += Cargos.at(j)->getLoadingTime();
                     cur->setActiveTime(cur->getActiveTime() + activeTime);
                     Cargos.at(j)->setStatus(DELIVERED_CARGO);
                     deliveredCargos.add(Cargos.at(j));
                     waitingCargos.remove(Cargos.at(j));
+                    movingCargos.add(Cargos.at(j));
                     cur->setTotalCargos(cur->getTotalCargos()+1);
+                    j--;
                     cnt--;
                 }
             }
@@ -387,9 +417,18 @@ void Company::moveCargo ()
 }
 
 void Company::checkEachHour() {
+
+    for(int i=0;i<movingCargos.size();i++){
+        if(movingCargos.at(i)->getDeliveredTime() == currentTime){
+            movingCargos.remove(movingCargos.at(i));
+            i--;
+        }
+    }
+
     this->executeEvents();
-    this->SendTrucksForCheckUp();
     this->CheckAutoPromotion();
+    this->checkReturningTrucks();
+    this->checkCheckupTrucks();
     if (this->getCurrentTime() % 24 > 4 && this->getCurrentTime() % 24 < 23) {
         this->AssignCargos();
     }
@@ -410,4 +449,15 @@ int Company::getPromotedCargos(){
 
 int Company::getActiveTime(){
     return activeTime;
+}
+
+void Company::checkReturningTrucks(){
+    priority_queue<truck*> &returning = movingTrucks;
+    while(!returning.empty() &&  returning.Front()->getReadyTime() == currentTime){
+        auto returningTruck = returning.Front();
+        returning.pop();
+        if(!SendTruckForCheckUp(returningTruck)){
+            addTruck(returningTruck);
+        }
+    }
 }

@@ -64,7 +64,7 @@ void UI::ApplyMode ()
 void UI::ApplyInteractive ()
 {
 	cout << "Simulation Starts...\n\n";
-	while (company->getCurrentTime() < 71)
+	while (company->getCurrentTime() < 150)
 	{
         company->checkEachHour();
 		printCurrentTime(company);
@@ -74,7 +74,6 @@ void UI::ApplyInteractive ()
         printEmptyTrucks(company);
         printMovingCargos(company);
         printInCheckTrucks(company);
-
 
         printDeliveredCargos(company);
 		cout << "press ENTER to continue..\n";
@@ -134,11 +133,11 @@ bool UI::LoadInputFile ()
 	int NTC, STC, VTC;
 	InFile >> NTC >> STC >> VTC;
 	int J, CN, CS, CV;
-	InFile >> CN >> CS >> CV >> J;
+	InFile >> J >> CN >> CS >> CV;
 
-	company->addTrucks(N, NORMAL_TRUCK, NS, NTC, CN, J, 0);
-    company->addTrucks(S, SPECIAL_TRUCK, SS, STC, CS, J, N);
-    company->addTrucks(V, VIP_TRUCK, VS, VTC, CV, J, N + S);
+	company->addTrucks(N, NORMAL_TRUCK, NS, NTC, J, CN, 0);
+    company->addTrucks(S, SPECIAL_TRUCK, SS, STC, J, CS, N);
+    company->addTrucks(V, VIP_TRUCK, VS, VTC, J, CV, N + S);
 
 
     int AutoP, MaxW;
@@ -241,7 +240,7 @@ bool UI::generateOutputFile ()
 
     }
     myfile << "Trucks: " << trucks.size() << "[N: " << nTrucks << ", S: " << sTrucks << ", V: " << vTrucks << "]" << endl;
-    myfile << "Avg Active Time: " << 1.0*company->getActiveTime()/(int)trucks.size()*100 << "%" << endl;
+    myfile << "Avg Active Time: " << 1.0*company->getActiveTime()/company->getCurrentTime() *100 << "%" << endl;
     myfile << "Utilization: " << 1.0*utilization_/(int)trucks.size()*100 << "% " <<  endl;
     myfile.close();
 
@@ -262,7 +261,7 @@ void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBrack
 	cout << ' ';
     for(int i=0;i<cargos.size();i++) {
         if(cargos.at(i)->getType() == cType){
-            if(forDelivered && cargos.at(i)->getStatus() != DELIVERED_CARGO) continue;
+            if(forDelivered && cargos.at(i)->getDeliveredTime() > company->getCurrentTime()) continue;
 			if (isFirstOfType) cout << openBracket << cargos.at(i)->getID();
             else cout << ',' << cargos.at(i)->getID();
             isFirstOfType=0;
@@ -277,9 +276,8 @@ void UI::printTrucksOfType(list<truck*>& trucks, TruckType tType, char openBrack
 	cout << ' ';
     for(int i=0;i<trucks.size();i++) {
         if(trucks.at(i)->getType() == tType){
-			if (isFirstOfType) cout << openBracket << trucks.at(i)->getCapacity();
-            // TODO:: Edit get capacity
-            else cout << ',' << trucks.at(i)->getCapacity();
+			if (isFirstOfType) cout << openBracket << trucks.at(i)->getID();
+            else cout << ',' << trucks.at(i)->getID();
             isFirstOfType=0;
         }
     }
@@ -345,7 +343,7 @@ void UI::printDeliveredCargos(Company *cmp){
     list<cargo*>& cargos = cmp->getDeliveredCargos();
     int sz = cargos.size();
     for(int i=0;i<cargos.size();i++){
-        if(cargos.at(i)->getStatus() != DELIVERED_CARGO) sz--;
+        if(cargos.at(i)->getDeliveredTime() > company->getCurrentTime()) sz--;
     }
     cout << sz << " Delivered Cargos:";
 
