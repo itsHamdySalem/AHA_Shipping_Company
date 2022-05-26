@@ -1,0 +1,26 @@
+﻿  CancellationEvent.cpp
+  Company.cpp
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(211,46): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(215,69): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(216,63): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(223,107): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(267,46): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(271,69): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(272,63): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(277,127): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(317,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(321,65): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(322,59): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(327,126): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(375,43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(379,65): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(380,59): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Company.cpp(386,110): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Event.cpp
+  PreparationEvent.cpp
+  PromotionEvent.cpp
+  Source.cpp
+  UI.cpp
+C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\UI.cpp(217,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  AHA_Shipping-Company.vcxproj -> C:\Users\Ahmed Taha\OneDrive - Cairo University - Students\Desktop\AHA_Shipping_Company-main\Debug\AHA_Shipping-Company.exe

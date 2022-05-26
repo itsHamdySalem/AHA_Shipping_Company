@@ -41,6 +41,7 @@ private:
     void AssignCargos(list<cargo*>&, queue<truck*>&, bool&);
     void AssignCargos(priority_queue<cargo*>&, queue<truck*>&, bool&);
     void AssignMaxW(list<cargo*>&, queue<truck*>&, bool&);
+    void AssignMaxW(priority_queue<cargo*>&, queue<truck*>&, bool&);
 public:
 	Company();
  

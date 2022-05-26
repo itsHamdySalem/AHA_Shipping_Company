@@ -2,7 +2,7 @@
 #include "PreparationEvent.h"
 #include "CancellationEvent.h"
 #include "PromotionEvent.h"
-#include <unistd.h>
+// #include <unistd.h>
 #include <fstream>
 
 UI::UI(){
@@ -95,7 +95,7 @@ void UI::ApplyStepByStep ()
         cout << "press ENTER to continue..\n";
         cout << "\n-------------------------------------------------------\n";
         company->setCurrentTime(company->getCurrentTime() + 1);
-        sleep(1);
+        // sleep(1);
     }
 
 	generateOutputFile();
