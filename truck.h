@@ -7,7 +7,7 @@
 class truck
 {
 private:
-	int TruckCapacity, CheckupTime, Speed, MaxJournies, NumberOfJournies, ReadyTime, ID, totalCargos;	// TC: Truck Capacity, MT: Maintenance Time, DI: Delivey Interval, DJ: Delivery Journeys
+	int TruckCapacity, CheckupTime, Speed, MaxJournies, NumberOfJournies, ReadyTime, ID, totalCargos, MoveTime;	// TC: Truck Capacity, MT: Maintenance Time, DI: Delivey Interval, DJ: Delivery Journeys
 	int activeTime;
     TruckType TYP;	// TYP: type of truck
     TruckStatus STATUS;
@@ -26,6 +26,7 @@ public:
     void setNumberOfJournies(int);
     void setTotalCargos(int);
     void setActiveTime(int);
+    void setMoveTime(int);
 
 	int getCapacity ();
 	int getCheckUpTime ();
@@ -36,6 +37,7 @@ public:
     int getID();
     int getTotalCargos();
     int getActiveTime();
+    int getMoveTime();
 	TruckType getType ();
 
 	~truck();

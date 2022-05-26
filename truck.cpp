@@ -109,6 +109,13 @@ int truck::getActiveTime(){
     return activeTime;
 }
 
+int truck::getMoveTime() {
+    return MoveTime;
+}
+
+void truck::setMoveTime(int x) {
+    MoveTime = x;
+}
 
 truck::~truck()
 {

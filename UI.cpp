@@ -2,9 +2,9 @@
 #include "PreparationEvent.h"
 #include "CancellationEvent.h"
 #include "PromotionEvent.h"
-// #include <unistd.h>
+#include <unistd.h>
 #include <fstream>
-
+#include "ReadWrite.h"
 UI::UI(){
 }
 
@@ -64,7 +64,7 @@ void UI::ApplyMode ()
 void UI::ApplyInteractive ()
 {
 	cout << "Simulation Starts...\n\n";
-	while (company->getCurrentTime() < 150)
+	while (company->getCurrentTime() < 250)
 	{
         company->checkEachHour();
 		printCurrentTime(company);
@@ -81,34 +81,44 @@ void UI::ApplyInteractive ()
 		cout << "\n-------------------------------------------------------\n";
 		company->setCurrentTime(company->getCurrentTime() + 1);
 	}
-    generateOutputFile();
+    ::generateOutputFile(company);
+    cout << "Simulation Ended and File Output was created\n";
+
 }
 void UI::ApplyStepByStep ()
 {
     cout << "Simulation Starts...\n\n";
-    while (company->getCurrentTime() < 71)
+    while (company->getCurrentTime() < 250)
     {
         company->checkEachHour();
         printCurrentTime(company);
         printWaitingCargos(company);
+
+        printLoadingTrucks(company);
+        printEmptyTrucks(company);
+        printMovingCargos(company);
+        printInCheckTrucks(company);
+
         printDeliveredCargos(company);
-        cout << "press ENTER to continue..\n";
         cout << "\n-------------------------------------------------------\n";
         company->setCurrentTime(company->getCurrentTime() + 1);
-        // sleep(1);
+        //sleep(1);
     }
 
-	generateOutputFile();
+    ::generateOutputFile(company);
+    cout << "Simulation Ended and File Output was created\n";
 }
 void UI::ApplySilent ()
 {
-    while (company->getCurrentTime() < 30)
+    cout << "Simulation Starts...\n\n";
+    while (company->getCurrentTime() < 250)
     {
         company->checkEachHour();
         company->setCurrentTime(company->getCurrentTime() + 1);
     }
 
-	generateOutputFile();
+    ::generateOutputFile(company);
+    cout << "Simulation Ended and File Output was created\n";
 }
 
 bool UI::LoadInputFile ()
@@ -118,142 +128,22 @@ bool UI::LoadInputFile ()
 	cin >> FileName;
 	cout << "Reading File...\n";
 
-	ifstream InFile;
-	InFile.open(FileName+".txt");
-	if (!InFile.is_open())
-	{
-		cout << FileName << " not found!\n";
-		return false;
-	}
+    if(::LoadInputFile(company, FileName)){
+        cout << "File has been loaded successfully!\n";
+        cout << "\n--------------------------------------------------------------\n";
+        return true;
+    }
+    cout << "File not found!\n";
+    cout << "\n--------------------------------------------------------------\n";
 
-	int N, S, V;
-	InFile >> N >> S >> V;
-	int NS, SS, VS;
-	InFile >> NS >> SS >> VS;
-	int NTC, STC, VTC;
-	InFile >> NTC >> STC >> VTC;
-	int J, CN, CS, CV;
-	InFile >> J >> CN >> CS >> CV;
+    return false;
 
-	company->addTrucks(N, NORMAL_TRUCK, NS, NTC, J, CN, 0);
-    company->addTrucks(S, SPECIAL_TRUCK, SS, STC, J, CS, N);
-    company->addTrucks(V, VIP_TRUCK, VS, VTC, J, CV, N + S);
-
-
-    int AutoP, MaxW;
-	InFile >> AutoP >> MaxW;
-
-	company->setmaxWHours(MaxW);
-    company->setautoPromotionLimitHours(24*AutoP);
-
-	int E;
-	InFile >> E;
-
-	char Etype, TYP;
-	string ET;
-	int ID, DIST, LT, Cost, ExtraMoney;
-
-	for (int i = 0; i < E; i++)
-	{
-		InFile >> Etype;
-        Event *event;
-		switch (Etype)
-		{
-		case 'R':
-			InFile >> TYP >> ET >> ID >> DIST >> LT >> Cost;
-            event = new PreparationEvent(TYP, ET, ID, DIST, LT, Cost);
-            break;
-		case 'X':
-			InFile >> ET >> ID;
-            event = new CancellationEvent(ET, ID);
-			break;
-		case 'P':
-			InFile >> ET >> ID >> ExtraMoney;
-            event = new PromotionEvent(ET, ID, ExtraMoney);
-			break;
-		default:
-			break;
-		}
-        company->addEvent(event);
-	}
-
-	InFile.close();
-	cout << "File has been loaded successfully!\n";
-	cout << "\n--------------------------------------------------------------\n";
-	return true;
 }
 
-bool UI::generateOutputFile ()
-{
-    ofstream myfile;
-    myfile.open ("result.txt");
-
-    priority_queue<cargo*> allCargos;
-    list<truck*> trucks;
-    company->getCalculations(allCargos, trucks);
-    int totalCargos = company->getWaitingCargos().size() + company->getDeliveredCargos().size();
-    int avgWaitTime = 0, nCargos =0, sCargos=0, vCargos = 0;
-    myfile << "CDT  ID  PT  WT   TID\n";
-    while(allCargos.size()){
-        cargo* c = allCargos.Front();
-        allCargos.pop();
-
-        switch(c->getType()){
-            case NORMAL_CARGO:
-                nCargos++;
-                break;
-            case SPECIAL_CARGO:
-                sCargos++;
-                break;
-            case VIP_CARGO:
-                vCargos++;
-                break;
-        }
-
-        myfile << toTimeFormat(c->getDeliveredTime()) << " " << c->getID() << " " << toTimeFormat(c->getReadyTime()) << " " << toTimeFormat(c->getWaitTime()) << " " << c->getTruckDeliveredID() << endl;
-        avgWaitTime += c->getWaitTime();
-    }
-
-    avgWaitTime = 1.0 * avgWaitTime / totalCargos;
-    myfile << "Cargos: " << totalCargos << "[N: " << nCargos << ", S: " << sCargos << ", V: " << vCargos << "]" << endl;
-    myfile << "Cargo Avg. Wait Time: " << toTimeFormat(avgWaitTime) << endl;
-    myfile << "Promoted Cargos: " << (1.0*company->getPromotedCargos()/totalCargos)*100.0 << "%" << endl;
-
-    int nTrucks=0, sTrucks=0, vTrucks = 0;
-    double utilization_ = 0;
-    for(int i=0;i<trucks.size();i++){
-
-        truck* t = trucks.at(i);
-        if(t->getNumberOfJournies())
-            utilization_ += 1.0 * t->getTotalCargos() / (t->getCapacity() * t->getNumberOfJournies()) * (t->getActiveTime() / company->getCurrentTime());
-        switch(t->getType()){
-            case NORMAL_TRUCK:
-                nTrucks++;
-                break;
-            case SPECIAL_TRUCK:
-                sTrucks++;
-                break;
-            case VIP_TRUCK:
-                vTrucks++;
-                break;
-        }
-
-    }
-    myfile << "Trucks: " << trucks.size() << "[N: " << nTrucks << ", S: " << sTrucks << ", V: " << vTrucks << "]" << endl;
-    myfile << "Avg Active Time: " << 1.0*company->getActiveTime()/company->getCurrentTime() *100 << "%" << endl;
-    myfile << "Utilization: " << 1.0*utilization_/(int)trucks.size()*100 << "% " <<  endl;
-    myfile.close();
-
-    return 1;
-}
 
 void UI::printCurrentTime(Company * cmp){
     int hr = cmp->getCurrentTime();
     cout << "Current Time (Day:Hour):" << hr/24 + 1 << ":" << hr%24 << endl;
-}
-
-string UI::toTimeFormat(int tim){
-    return to_string(tim/24+1) + ":" + to_string(tim%24);
 }
 
 void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBracket, char closeBracket, bool forDelivered=0){

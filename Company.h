@@ -41,7 +41,7 @@ private:
     void AssignCargos(list<cargo*>&, queue<truck*>&, bool&);
     void AssignCargos(priority_queue<cargo*>&, queue<truck*>&, bool&);
     void AssignMaxW(list<cargo*>&, queue<truck*>&, bool&);
-    void AssignMaxW(priority_queue<cargo*>&, queue<truck*>&, bool&);
+    void AssignMaxW(priority_queue<cargo*>& Cargos, queue<truck*>& Trucks, bool& done);
 public:
 	Company();
  
@@ -87,6 +87,7 @@ public:
     int getActiveTime();
 
     void checkReturningTrucks();
+    void checkLoadingTrucks();
 
     ~Company(){}
 };
