@@ -64,6 +64,8 @@ public:
     list<cargo*>& getWaitingCargos();
     list<cargo*>& getMovingCargos();
 
+    priority_queue<truck*> &getMovingTrucks();
+
     list<truck*>& getLoadingTrucks();
     list<truck*>& getEmptyTrucks();
     list<truck*>& getCheckUpTrucks();

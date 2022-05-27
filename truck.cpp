@@ -121,4 +121,14 @@ truck::~truck()
 {
 }
 
+void truck::pushCargo(cargo* c){
+    cargosInside.push(c, c->getReadyTime());
+}
 
+priority_queue<cargo*>& truck::getCargosInside(){
+    return cargosInside;
+}
+
+TruckStatus truck::getStatus() {
+    return STATUS;
+}

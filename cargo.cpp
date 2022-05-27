@@ -50,7 +50,7 @@ void cargo::setWaitTime(int t) {
     waitTime = t;
 }
 
-void cargo::setTruckDeliveredID(int t) {
+void cargo::setTruckDelivered(truck* t) {
     truckDeliveredID = t;
 }
 
@@ -93,7 +93,7 @@ int cargo::getWaitTime() const {
     return waitTime;
 }
 
-int cargo::getTruckDeliveredID() const {
+truck* cargo::getTruckDelivered() const {
     return truckDeliveredID;
 }
 

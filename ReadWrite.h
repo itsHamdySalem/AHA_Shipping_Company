@@ -99,7 +99,7 @@ bool generateOutputFile (Company * company)
                 break;
         }
 
-        myfile << toTimeFormat(c->getDeliveredTime()) << " " << c->getID() << " " << toTimeFormat(c->getReadyTime()) << " " << toTimeFormat(c->getWaitTime()) << " " << c->getTruckDeliveredID() << endl;
+        myfile << toTimeFormat(c->getDeliveredTime()) << " " << c->getID() << " " << toTimeFormat(c->getReadyTime()) << " " << toTimeFormat(c->getWaitTime()) << " " << c->getTruckDelivered()->getID() << endl;
         avgWaitTime += c->getWaitTime();
     }
 

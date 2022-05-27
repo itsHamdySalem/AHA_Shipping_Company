@@ -20,7 +20,7 @@ private:
 	Company* company;
 
 	void printCargosOfType(list<cargo*>&, CargoType, char, char, bool);
-    void printTrucksOfType(list<truck*>&, TruckType, char, char);
+    void printTrucksOfType(list<truck*>&, TruckType, char, char, TruckStatus, bool);
     string toTimeFormat(int);
 public:
 	UI();

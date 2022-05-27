@@ -161,13 +161,30 @@ void UI::printCargosOfType(list<cargo*>& cargos, CargoType cType, char openBrack
 
 }
 
-void UI::printTrucksOfType(list<truck*>& trucks, TruckType tType, char openBracket, char closeBracket){
+void UI::printTrucksOfType(list<truck*>& trucks, TruckType tType, char openBracket, char closeBracket, TruckStatus status, bool isAll=0){
     bool isFirstOfType = 1;
 	cout << ' ';
     for(int i=0;i<trucks.size();i++) {
-        if(trucks.at(i)->getType() == tType){
-			if (isFirstOfType) cout << openBracket << trucks.at(i)->getID();
+        if(trucks.at(i)->getType() == tType && (isAll || trucks.at(i)->getStatus() == status)){
+            if(status == MOVING_TRUCK && !trucks.at(i)->getCargosInside().size()) continue;
+			if (isFirstOfType) {
+                cout << openBracket << trucks.at(i)->getID();
+            }
             else cout << ',' << trucks.at(i)->getID();
+
+            auto c2 = trucks.at(i)->getCargosInside();
+            if(c2.size()){
+                cout << "[";
+                while(c2.size()){
+                    auto x = c2.Front();
+                    c2.pop();
+                    cout << x->getID();
+                    if(c2.size()) cout << ",";
+                }
+                cout << "]";
+            }
+
+
             isFirstOfType=0;
         }
     }
@@ -186,13 +203,35 @@ void UI::printWaitingCargos(Company *cmp){
     cout << "\n-----------------------------------------\n";
 }
 
+void UI::printMovingCargos(Company *cmp){
+    priority_queue<truck*>& trucks = cmp->getMovingTrucks();
+    priority_queue<truck*> q2(trucks);
+
+    list<truck*> ls;
+    int tot = 0;
+    while(q2.size()){
+        truck* cur = q2.Front();
+        q2.pop();
+        if(cur->getStatus() == LOADING_TRUCK) continue;
+        ls.add(cur);
+        tot += cur->getCargosInside().size();
+    }
+    cout << tot << " Moving Cargos:";
+
+    printTrucksOfType(ls, NORMAL_TRUCK, '[', ']', MOVING_TRUCK);
+    printTrucksOfType(ls, SPECIAL_TRUCK, '(', ')', MOVING_TRUCK);
+    printTrucksOfType(ls, VIP_TRUCK, '{', '}', MOVING_TRUCK);
+    cout << "\n-----------------------------------------\n";
+}
+
+
 void UI::printLoadingTrucks(Company *cmp){
     list<truck*>& trucks = cmp->getLoadingTrucks();
     cout << trucks.size() << " Loading Trucks:";
 
-    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');
-    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')');
-    printTrucksOfType(trucks, VIP_TRUCK, '{', '}');
+    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']', LOADING_TRUCK);
+    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')', LOADING_TRUCK);
+    printTrucksOfType(trucks, VIP_TRUCK, '{', '}', LOADING_TRUCK);
 
     cout << "\n-----------------------------------------\n";
 }
@@ -201,31 +240,21 @@ void UI::printEmptyTrucks(Company *cmp){
     list<truck*>& trucks = cmp->getEmptyTrucks();
     cout << trucks.size() << " Empty Trucks:";
 
-    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');
-    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')');
-    printTrucksOfType(trucks, VIP_TRUCK, '{', '}');
+    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']', AVAILABLE_TRUCK, 1);
+    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')', AVAILABLE_TRUCK, 1);
+    printTrucksOfType(trucks, VIP_TRUCK, '{', '}', AVAILABLE_TRUCK, 1);
     cout << "\n-----------------------------------------\n";
 
 }
 
-void UI::printMovingCargos(Company *cmp){
-    list<cargo*>& cargos = cmp->getMovingCargos();
-    cout << cargos.size() << " Moving Cargos:";
-
-    printCargosOfType(cargos, NORMAL_CARGO, '[', ']');
-    printCargosOfType(cargos, SPECIAL_CARGO, '(', ')');
-    printCargosOfType(cargos, VIP_CARGO, '{', '}');
-    cout << "\n-----------------------------------------\n";
-
-}
 
 void UI::printInCheckTrucks(Company *cmp){
     list<truck*>& trucks = cmp->getCheckUpTrucks();
     cout << trucks.size() << " Check Up Trucks:";
 
-    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']');
-    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')');
-    printTrucksOfType(trucks, VIP_TRUCK, '{', '}');
+    printTrucksOfType(trucks, NORMAL_TRUCK, '[', ']', CHECKUP_TRUCK);
+    printTrucksOfType(trucks, SPECIAL_TRUCK, '(', ')', CHECKUP_TRUCK);
+    printTrucksOfType(trucks, VIP_TRUCK, '{', '}', CHECKUP_TRUCK);
     cout << "\n-----------------------------------------\n";
 }
 

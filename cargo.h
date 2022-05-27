@@ -1,13 +1,16 @@
 #pragma once
 #ifndef CARGO_H
 #define CARGO_H
-
+#include "truck.h"
 #include "Types.h"
+
+class truck;
 
 class cargo
 {
 private:
-	int ReadyTime, LoadingTime, ID, Dist, Cost, DeliveredTime, waitTime, truckDeliveredID;
+	int ReadyTime, LoadingTime, ID, Dist, Cost, DeliveredTime, waitTime;
+    truck* truckDeliveredID;
 	CargoType TYP;
 	CargoStatus Status;
 public:
@@ -22,7 +25,7 @@ public:
 	void setStatus(CargoStatus);
 	void setDeliveredTime(int t);
     void setWaitTime(int t);
-    void setTruckDeliveredID(int);
+    void setTruckDelivered(truck*);
 
 	int getReadyTime() const;
 	int getLoadingTime() const;
@@ -33,7 +36,7 @@ public:
 	CargoStatus getStatus () const;
 	int getDeliveredTime() const;
     int getWaitTime() const;
-    int getTruckDeliveredID() const;
+    truck* getTruckDelivered() const;
 
 	~cargo();
 };

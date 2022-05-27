@@ -1,8 +1,11 @@
+#include "cargo.h"
+#include "priority_queue.h"
 #pragma once
 #ifndef TRUCK_H
 #define TRUCK_H
 
 #include "Types.h"
+class cargo;
 
 class truck
 {
@@ -11,6 +14,7 @@ private:
 	int activeTime;
     TruckType TYP;	// TYP: type of truck
     TruckStatus STATUS;
+    priority_queue<cargo*> cargosInside;
 public:
 	truck();
 	truck(int tc, int mt, int speed, int MJ, TruckType type, TruckStatus, int ID);
@@ -28,6 +32,10 @@ public:
     void setActiveTime(int);
     void setMoveTime(int);
 
+    void pushCargo(cargo*);
+
+    priority_queue<cargo*> &getCargosInside();
+
 	int getCapacity ();
 	int getCheckUpTime ();
 	int getSpeed ();
@@ -39,6 +47,7 @@ public:
     int getActiveTime();
     int getMoveTime();
 	TruckType getType ();
+    TruckStatus getStatus();
 
 	~truck();
 };
